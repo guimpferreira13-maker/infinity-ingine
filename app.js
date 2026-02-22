@@ -97,7 +97,25 @@ document.addEventListener('DOMContentLoaded', () => {
             err_storage_full: "❌ Erro: Espaço de armazenamento cheio! Não foi possível publicar.\nTente excluir alguns projetos antigos.",
             demo_created: "🎮 Demo 'Mario Control' criado com sucesso!\nUse as Setas e Espaço para jogar.",
             // Level Tooltips
-            clear_console_tooltip: 'Limpar Console'
+            clear_console_tooltip: 'Limpar Console',
+            // Mascot & Tutorial
+            tutorial_label: 'Tutorial',
+            mascot_skip: 'Pular',
+            mascot_next: 'Próximo ➜',
+            mascot_start: 'Começar! 🚀',
+            tut_step_1: '<span class="emoji-big">👋</span>Olá! Eu sou o <strong>Bit</strong>, o teu guia robô. Vamos aprender a usar o <strong>Infinity Engine</strong> em 1 minuto?',
+            tut_step_2: 'Aqui podes ver os teus projetos e os da <strong>comunidade</strong>. Clica em <strong>+ Novo Jogo</strong> para começar!',
+            tut_step_3: '<span class="emoji-big">🧩</span>Este é o <strong>Painel de Blocos</strong>! Os blocos são os comandos do teu jogo. Cada categoria tem blocos diferentes:',
+            tut_step_4: '🏷️ <strong>Categorias dos blocos:</strong><br>• <strong style="color:#4C97FF">Movimento</strong> — mover, girar, saltar<br>• <strong style="color:#9966FF">Aparência</strong> — mudar visual, falar<br>• <strong style="color:#CF63CF">Som</strong> — tocar sons<br>• <strong style="color:#FFAB19">Controle</strong> — repetir, esperar<br>• <strong style="color:#FFBF00">Eventos</strong> — quando tecla premida, quando morrer',
+            tut_step_5: '🖱️ Esta é a <strong>Área de Código</strong>! Arrasta os blocos da esquerda para aqui. Encaixa-os uns nos outros para criar sequências. Por exemplo: "Quando seta direita → Mover 10 passos".',
+            tut_step_6: '🎬 Este é o <strong>Palco</strong> — a tela do teu jogo! Aqui vês o personagem e tudo o que acontece quando executas o código.',
+            tut_step_7: '🎮 <strong>Botões de controlo:</strong><br>• <strong>▶ Executar</strong> — inicia o jogo<br>• <strong>⏹ Parar</strong> — para a execução<br>• <strong>⏮ Reset</strong> — volta tudo ao início<br><br>💡 <em>Dica: também podes pressionar as teclas do teclado (setas, WASD, espaço) para iniciar automaticamente!</em>',
+            tut_step_8: '💾 <strong>Salvar e Publicar:</strong><br>• <strong>💾 Salvar</strong> — guarda o projeto no teu computador<br>• <strong>🌍 Publicar</strong> — partilha o jogo com toda a comunidade!',
+            tut_step_9: '🎨 O botão <strong>"🎨 Personagem"</strong> abre o editor de sprite! Podes importar uma imagem ou desenhar o teu personagem pixel a pixel.',
+            tut_step_10: '🖼️ O botão <strong>"🖼️ Fundo"</strong> permite mudar o cenário do jogo! Escolhe uma cor, importa uma imagem, ou usa o fundo de plataforma.',
+            tut_step_11: '🧱 O botão <strong>"🧱 Nível"</strong> abre o editor de nível! Aqui podes desenhar obstáculos, colocar a meta 🏁, e posicionar inimigos 👾 no mapa.',
+            tut_step_12: '📊 As <strong>Propriedades</strong> (X, Y, Direção) mostram a posição atual do personagem. O <strong>Console</strong> abaixo mostra mensagens do programa e erros.',
+            tut_step_13: '<span class="emoji-big">🚀</span>É isso! Agora já sabes tudo! Começa por arrastar um bloco <strong>"Quando tecla premida"</strong> e um bloco <strong>"Mover"</strong> para a área de código. <strong>Diverte-te a criar!</strong>'
         },
         en: {
             hero_title: 'CREATE. PLAY. <span class="gradient-text" data-i18n="hero_highlight">SHINE.</span>',
@@ -189,7 +207,25 @@ document.addEventListener('DOMContentLoaded', () => {
             err_storage_full: "❌ Error: Storage space full! Could not publish.\nTry deleting some old projects.",
             demo_created: "🎮 'Mario Control' demo created successfully!\nUse Arrows and Space to play.",
             // Level Tooltips
-            clear_console_tooltip: 'Clear Console'
+            clear_console_tooltip: 'Clear Console',
+            // Mascot & Tutorial
+            tutorial_label: 'Tutorial',
+            mascot_skip: 'Skip',
+            mascot_next: 'Next ➜',
+            mascot_start: 'Start! 🚀',
+            tut_step_1: '<span class="emoji-big">👋</span>Hi! I\'m <strong>Bit</strong>, your robot guide. Let\'s learn how to use <strong>Infinity Engine</strong> in 1 minute?',
+            tut_step_2: 'Here you can see your projects and those from the <strong>community</strong>. Click on <strong>+ New Game</strong> to start!',
+            tut_step_3: '<span class="emoji-big">🧩</span>This is the <strong>Blocks Panel</strong>! Blocks are your game\'s commands. Each category has different blocks:',
+            tut_step_4: '🏷️ <strong>Block categories:</strong><br>• <strong style="color:#4C97FF">Motion</strong> — move, turn, jump<br>• <strong style="color:#9966FF">Looks</strong> — change appearance, speak<br>• <strong style="color:#CF63CF">Sound</strong> — play sounds<br>• <strong style="color:#FFAB19">Control</strong> — repeat, wait<br>• <strong style="color:#FFBF00">Events</strong> — when key pressed, when death',
+            tut_step_5: '🖱️ This is the <strong>Code Area</strong>! Drag blocks from the left to here. Snap them together to create sequences. For example: "When right arrow → Move 10 steps".',
+            tut_step_6: '🎬 This is the <strong>Stage</strong> — your game\'s screen! Here you see the character and everything that happens when you run the code.',
+            tut_step_7: '🎮 <strong>Control buttons:</strong><br>• <strong>▶ Run</strong> — starts the game<br>• <strong>⏹ Stop</strong> — stops execution<br>• <strong>⏮ Reset</strong> — resets everything<br><br>💡 <em>Tip: you can also press keyboard keys (arrows, WASD, space) to start automatically!</em>',
+            tut_step_8: '💾 <strong>Save and Publish:</strong><br>• <strong>💾 Save</strong> — saves the project to your computer<br>• <strong>🌍 Publish</strong> — shares the game with the entire community!',
+            tut_step_9: '🎨 The <strong>"🎨 Character"</strong> button opens the sprite editor! You can import an image or draw your character pixel by pixel.',
+            tut_step_10: '🖼️ The <strong>"🖼️ Background"</strong> button allows you to change the game scenery! Choose a color, import an image, or use the platformer background.',
+            tut_step_11: '🧱 The <strong>"🧱 Level"</strong> button opens the level editor! Here you can draw obstacles, place the goal 🏁, and position enemies 👾 on the map.',
+            tut_step_12: '📊 <strong>Properties</strong> (X, Y, Direction) show the character\'s current position. The <strong>Console</strong> below shows program messages and errors.',
+            tut_step_13: '<span class="emoji-big">🚀</span>That\'s it! Now you know everything! Start by dragging a <strong>"When key pressed"</strong> block and a <strong>"Move"</strong> block to the code area. <strong>Have fun creating!</strong>'
         },
         es: {
             hero_title: 'CREA. JUEGA. <span class="gradient-text" data-i18n="hero_highlight">BRILLA.</span>',
@@ -281,7 +317,25 @@ document.addEventListener('DOMContentLoaded', () => {
             err_storage_full: "❌ ¡Error: Espacio de almacenamiento lleno! No se pudo publicar.\nIntenta eliminar algunos proyectos antiguos.",
             demo_created: "🎮 ¡Demo 'Mario Control' creado con éxito!\nUsa las Flechas y el Espacio para jugar.",
             // Level Tooltips
-            clear_console_tooltip: 'Limpiar Consola'
+            clear_console_tooltip: 'Limpiar Consola',
+            // Mascot & Tutorial
+            tutorial_label: 'Tutorial',
+            mascot_skip: 'Saltar',
+            mascot_next: 'Siguiente ➜',
+            mascot_start: '¡Empezar! 🚀',
+            tut_step_1: '<span class="emoji-big">👋</span>¡Hola! Soy <strong>Bit</strong>, tu guía robot. ¿Aprendemos a usar <strong>Infinity Engine</strong> en 1 minuto?',
+            tut_step_2: 'Aquí puedes ver tus proyectos y los de la <strong>comunidad</strong>. ¡Haz clic en <strong>+ Nuevo Juego</strong> para empezar!',
+            tut_step_3: '<span class="emoji-big">🧩</span>¡Este es el <strong>Panel de Bloques</strong>! Los bloques son los comandos de tu juego. Cada categoría tiene bloques diferentes:',
+            tut_step_4: '🏷️ <strong>Categorías de bloques:</strong><br>• <strong style="color:#4C97FF">Movimiento</strong> — mover, girar, saltar<br>• <strong style="color:#9966FF">Apariencia</strong> — cambiar aspecto, hablar<br>• <strong style="color:#CF63CF">Sonido</strong> — reproducir sonidos<br>• <strong style="color:#FFAB19">Control</strong> — repetir, esperar<br>• <strong style="color:#FFBF00">Eventos</strong> — cuando se pulsa tecla, cuando muere',
+            tut_step_5: '🖱️ ¡Esta es el <strong>Área de Código</strong>! Arrastra los bloques de la izquierda aquí. Encájalos entre sí para crear secuencias. Por ejemplo: "Cuando flecha derecha → Mover 10 pasos".',
+            tut_step_6: '🎬 ¡Este es el <strong>Escenario</strong> — la pantalla de tu juego! Aquí ves al personaje y todo lo que sucede cuando ejecutas el código.',
+            tut_step_7: '🎮 <strong>Botones de control:</strong><br>• <strong>▶ Ejecutar</strong> — inicia el juego<br>• <strong>⏹ Parar</strong> — detiene la ejecución<br>• <strong>⏮ Reset</strong> — vuelve todo al inicio<br><br>💡 <em>Consejo: ¡también puedes pulsar las teclas del teclado (flechas, WASD, espacio) para iniciar automáticamente!</em>',
+            tut_step_8: '💾 <strong>Guardar y Publicar:</strong><br>• <strong>💾 Guardar</strong> — guarda el proyecto en tu ordenador<br>• <strong>🌍 Publicar</strong> — ¡comparte el juego con toda la comunidad!',
+            tut_step_9: '🎨 ¡El botón <strong>"🎨 Personaje"</strong> abre el editor de sprites! Puedes importar una imagen o dibujar tu personaje píxel a píxel.',
+            tut_step_10: '🖼️ ¡El botón <strong>"🖼️ Fondo"</strong> permite cambiar el escenario del juego! Elige un color, importa una imagen o usa el fondo de plataforma.',
+            tut_step_11: '🧱 ¡El botón <strong>"🧱 Nivel"</strong> abre el editor de niveles! Aquí puedes dibujar obstáculos, colocar la meta 🏁 y posicionar enemigos 👾 en el mapa.',
+            tut_step_12: '📊 Las <strong>Propiedades</strong> (X, Y, Dirección) muestran la posición actual del personaje. La <strong>Consola</strong> de abajo muestra mensajes del programa y errores.',
+            tut_step_13: '<span class="emoji-big">🚀</span>¡Eso es todo! ¡Ahora ya lo sabes todo! Empieza arrastrando un bloque <strong>"Cuando se pulsa tecla"</strong> y un bloque <strong>"Mover"</strong> al área de código. <strong>¡Diviértete creando!</strong>'
         }
     };
 
@@ -455,6 +509,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     initLevelGrid(); // Refresh the bar labels
                 }
             }
+        }
+
+        // Update tutorial if active
+        if (typeof showTutorialStep === 'function' && typeof tutorialMascot !== 'undefined' && tutorialMascot && !tutorialMascot.classList.contains('hidden')) {
+            showTutorialStep(tutorialCurrentStep);
         }
     }
 
@@ -2230,81 +2289,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const mascotSkip = document.getElementById('mascot-skip');
 
     const TUTORIAL_STEPS = [
-        {
-            text: '<span class="emoji-big">👋</span>Olá! Eu sou o <strong>Robô Guia</strong>! Parece que é a tua primeira vez aqui. Vou mostrar-te como tudo funciona!',
-            highlight: null,
-            view: 'landing'
-        },
-        {
-            text: '📝 Começa por <strong>criar a tua conta</strong>! Escreve um nome de utilizador e uma senha, depois clica em <strong>"🚀 Começar Aventura"</strong>. Se já tens conta, usa os mesmos dados para entrar!',
-            highlight: '.auth-box',
-            view: 'landing'
-        },
-        {
-            text: '📂 Este é o <strong>Painel de Controlo</strong>! Tens duas abas: <strong>"Meus Projetos"</strong> mostra os teus jogos guardados, e <strong>"Comunidade"</strong> mostra jogos publicados por outros utilizadores.',
-            highlight: '.tab-buttons',
-            view: 'dashboard'
-        },
-        {
-            text: '➕ Clica em <strong>"+ Novo Jogo"</strong> para criar um projeto! Podes escolher entre RPG, Plataforma, ou começar do zero com um Projeto Vazio.',
-            highlight: '.new-project',
-            view: 'dashboard'
-        },
-        {
-            text: '<span class="emoji-big">🧩</span>Este é o <strong>Painel de Blocos</strong>! Os blocos são os comandos do teu jogo. Cada categoria tem blocos diferentes:',
-            highlight: '.palette-panel',
-            view: 'editor'
-        },
-        {
-            text: '🏷️ <strong>Categorias dos blocos:</strong><br>• <strong style="color:#4C97FF">Movimento</strong> — mover, girar, saltar<br>• <strong style="color:#9966FF">Aparência</strong> — mudar visual, falar<br>• <strong style="color:#CF63CF">Som</strong> — tocar sons<br>• <strong style="color:#FFAB19">Controle</strong> — repetir, esperar<br>• <strong style="color:#FFBF00">Eventos</strong> — quando tecla premida, quando morrer',
-            highlight: '.category-tabs',
-            view: 'editor'
-        },
-        {
-            text: '🖱️ Esta é a <strong>Área de Código</strong>! Arrasta os blocos da esquerda para aqui. Encaixa-os uns nos outros para criar sequências. Por exemplo: "Quando seta direita → Mover 10 passos".',
-            highlight: '.workspace-panel',
-            view: 'editor'
-        },
-        {
-            text: '🎬 Este é o <strong>Palco</strong> — a tela do teu jogo! Aqui vês o personagem e tudo o que acontece quando executas o código.',
-            highlight: '.canvas-wrapper',
-            view: 'editor'
-        },
-        {
-            text: '🎮 <strong>Botões de controlo:</strong><br>• <strong>▶ Executar</strong> — inicia o jogo<br>• <strong>⏹ Parar</strong> — para a execução<br>• <strong>⏮ Reset</strong> — volta tudo ao início<br><br>💡 <em>Dica: também podes pressionar as teclas do teclado (setas, WASD, espaço) para iniciar automaticamente!</em>',
-            highlight: '.controls',
-            view: 'editor'
-        },
-        {
-            text: '💾 <strong>Salvar e Publicar:</strong><br>• <strong>💾 Salvar</strong> — guarda o projeto no teu computador<br>• <strong>🌍 Publicar</strong> — partilha o jogo com toda a comunidade!',
-            highlight: '#save-project-btn',
-            view: 'editor'
-        },
-        {
-            text: '🎨 O botão <strong>"🎨 Personagem"</strong> abre o editor de sprite! Podes importar uma imagem ou desenhar o teu personagem pixel a pixel.',
-            highlight: '#edit-sprite-btn',
-            view: 'editor'
-        },
-        {
-            text: '🖼️ O botão <strong>"🖼️ Fundo"</strong> permite mudar o cenário do jogo! Escolhe uma cor, importa uma imagem, ou usa o fundo de plataforma.',
-            highlight: '#bg-change-btn',
-            view: 'editor'
-        },
-        {
-            text: '🧱 O botão <strong>"🧱 Nível"</strong> abre o editor de nível! Aqui podes desenhar obstáculos, colocar a meta 🏁, e posicionar inimigos 👾 no mapa.',
-            highlight: '#edit-level-btn',
-            view: 'editor'
-        },
-        {
-            text: '📊 As <strong>Propriedades</strong> (X, Y, Direção) mostram a posição atual do personagem. O <strong>Console</strong> abaixo mostra mensagens do programa e erros.',
-            highlight: '.console-panel',
-            view: 'editor'
-        },
-        {
-            text: '<span class="emoji-big">🚀</span>É isso! Agora já sabes tudo! Começa por arrastar um bloco <strong>"Quando tecla premida"</strong> e um bloco <strong>"Mover"</strong> para a área de código. <strong>Diverte-te a criar!</strong>',
-            highlight: null,
-            view: null
-        }
+        { key: 'tut_step_1', highlight: null, view: 'landing' },
+        { key: 'tut_step_2', highlight: '.tab-buttons', view: 'dashboard' },
+        { key: 'tut_step_3', highlight: '.palette-panel', view: 'editor' },
+        { key: 'tut_step_4', highlight: '.category-tabs', view: 'editor' },
+        { key: 'tut_step_5', highlight: '.workspace-panel', view: 'editor' },
+        { key: 'tut_step_6', highlight: '.canvas-wrapper', view: 'editor' },
+        { key: 'tut_step_7', highlight: '.controls', view: 'editor' },
+        { key: 'tut_step_8', highlight: '#save-project-btn', view: 'editor' },
+        { key: 'tut_step_9', highlight: '#edit-sprite-btn', view: 'editor' },
+        { key: 'tut_step_10', highlight: '#bg-change-btn', view: 'editor' },
+        { key: 'tut_step_11', highlight: '#edit-level-btn', view: 'editor' },
+        { key: 'tut_step_12', highlight: '.console-panel', view: 'editor' },
+        { key: 'tut_step_13', highlight: null, view: null }
     ];
 
     let tutorialCurrentStep = 0;
@@ -2318,6 +2315,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tutorialCurrentStep = index;
         const step = TUTORIAL_STEPS[index];
+        const t = TRANSLATIONS[currentLang];
 
         // Remove previous highlight
         if (previousHighlight) {
@@ -2325,15 +2323,15 @@ document.addEventListener('DOMContentLoaded', () => {
             previousHighlight = null;
         }
 
-        // Update text
-        mascotText.innerHTML = step.text;
+        // Update text from translation keys
+        mascotText.innerHTML = t[step.key] || "Translation missing";
         mascotStep.textContent = `${index + 1} / ${TUTORIAL_STEPS.length}`;
 
         // Update button text on last step
         if (index === TUTORIAL_STEPS.length - 1) {
-            mascotNext.textContent = 'Começar! 🚀';
+            mascotNext.textContent = t.mascot_start;
         } else {
-            mascotNext.textContent = 'Próximo ➜';
+            mascotNext.textContent = t.mascot_next;
         }
 
         // Highlight target element
