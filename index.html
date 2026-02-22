@@ -44,11 +44,11 @@
 
         <!-- VIEW: LANDING / LOGIN -->
         <section id="view-landing" class="view-section active-view">
-            <div class="lang-selector-landing">
-                <button id="lang-btn" class="lang-btn" title="Idioma / Language">
+            <div class="lang-selector-container landing-top-right">
+                <button class="lang-btn-toggle" title="Idioma / Language">
                     🌐
                 </button>
-                <div id="lang-dropdown" class="lang-dropdown hidden">
+                <div class="lang-dropdown hidden">
                     <button class="lang-option" data-lang="pt">🇧🇷 Português</button>
                     <button class="lang-option" data-lang="en">🇬🇧 English</button>
                     <button class="lang-option" data-lang="es">🇪🇸 Español</button>
@@ -129,6 +129,16 @@
                 <div class="user-profile">
                     <div class="avatar">👤</div>
                     <span id="user-display">Visitante</span>
+
+                    <div class="lang-selector-container">
+                        <button class="lang-btn-toggle icon-btn" title="Idioma / Language">🌐</button>
+                        <div class="lang-dropdown hidden">
+                            <button class="lang-option" data-lang="pt">🇧🇷 Português</button>
+                            <button class="lang-option" data-lang="en">🇬🇧 English</button>
+                            <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+                        </div>
+                    </div>
+
                     <button id="tutorial-restart-btn" class="icon-btn tutorial-header-btn" title="Rever Tutorial">
                         🤖
                         <span class="tutorial-btn-label">Tutorial</span>
@@ -183,6 +193,15 @@
                     <button id="reset-btn" class="control-btn reset" title="Resetar">
                         <span data-i18n="reset_btn">⏮ Reset</span>
                     </button>
+
+                    <div class="lang-selector-container">
+                        <button class="lang-btn-toggle icon-btn" title="Idioma / Language">🌐</button>
+                        <div class="lang-dropdown hidden">
+                            <button class="lang-option" data-lang="pt">🇧🇷 Português</button>
+                            <button class="lang-option" data-lang="en">🇬🇧 English</button>
+                            <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+                        </div>
+                    </div>
                 </div>
             </header>
 

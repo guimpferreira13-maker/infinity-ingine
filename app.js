@@ -517,29 +517,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Language button & dropdown
-    const langBtn = document.getElementById('lang-btn');
-    const langDropdown = document.getElementById('lang-dropdown');
+    // Language button & dropdown (Multiple instances)
+    const langBtns = document.querySelectorAll('.lang-btn-toggle');
 
-    if (langBtn && langDropdown) {
-        langBtn.addEventListener('click', (e) => {
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            langDropdown.classList.toggle('hidden');
-        });
+            const dropdown = btn.closest('.lang-selector-container').querySelector('.lang-dropdown');
 
-        document.querySelectorAll('.lang-option').forEach(opt => {
-            opt.addEventListener('click', (e) => {
-                e.stopPropagation();
-                applyLanguage(opt.dataset.lang);
-                langDropdown.classList.add('hidden');
+            // Close all other dropdowns first
+            document.querySelectorAll('.lang-dropdown').forEach(d => {
+                if (d !== dropdown) d.classList.add('hidden');
             });
-        });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', () => {
-            langDropdown.classList.add('hidden');
+            dropdown.classList.toggle('hidden');
         });
-    }
+    });
+
+    document.querySelectorAll('.lang-option').forEach(opt => {
+        opt.addEventListener('click', (e) => {
+            e.stopPropagation();
+            applyLanguage(opt.dataset.lang);
+            // Close all dropdowns
+            document.querySelectorAll('.lang-dropdown').forEach(d => d.classList.add('hidden'));
+        });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.lang-dropdown').forEach(d => d.classList.add('hidden'));
+    });
 
     // Initialize Stage
     const stage = new Stage('stage-canvas');
