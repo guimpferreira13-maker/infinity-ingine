@@ -17,24 +17,24 @@
     <!-- Game Selection Overlay -->
     <div id="game-selection-overlay" class="overlay hidden">
         <div class="overlay-content">
-            <h1>Escolha seu estilo de jogo</h1>
-            <p>Comece sua jornada criando algo incrível</p>
+            <h1 data-i18n="choose_style">Escolha seu estilo de jogo</h1>
+            <p data-i18n="start_journey">Comece sua jornada criando algo incrível</p>
 
             <div class="game-cards">
                 <div class="game-card" data-type="rpg">
                     <div class="card-icon">⚔️</div>
-                    <h3>RPG 2D</h3>
-                    <p>Crie aventuras top-down com mapas e missões.</p>
+                    <h3 data-i18n="rpg_title">RPG 2D</h3>
+                    <p data-i18n="rpg_desc">Crie aventuras top-down com mapas e missões.</p>
                 </div>
                 <div class="game-card" data-type="platformer">
                     <div class="card-icon">🏃</div>
-                    <h3>Plataforma</h3>
-                    <p>Corra e pule em fases estilo Mario.</p>
+                    <h3 data-i18n="platform_title">Plataforma</h3>
+                    <p data-i18n="platform_desc">Corra e pule em fases estilo Mario.</p>
                 </div>
                 <div class="game-card" data-type="blank">
                     <div class="card-icon">✨</div>
-                    <h3>Projeto Vazio</h3>
-                    <p>Comece do zero com sua imaginação.</p>
+                    <h3 data-i18n="blank_title">Projeto Vazio</h3>
+                    <p data-i18n="blank_desc">Comece do zero com sua imaginação.</p>
                 </div>
             </div>
         </div>
@@ -44,17 +44,32 @@
 
         <!-- VIEW: LANDING / LOGIN -->
         <section id="view-landing" class="view-section active-view">
+            <div class="lang-selector-landing">
+                <button id="lang-btn" class="lang-btn" title="Idioma / Language">
+                    🌐
+                </button>
+                <div id="lang-dropdown" class="lang-dropdown hidden">
+                    <button class="lang-option" data-lang="pt">🇧🇷 Português</button>
+                    <button class="lang-option" data-lang="en">🇬🇧 English</button>
+                    <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+                </div>
+            </div>
             <div class="landing-content">
-                <h1 class="hero-title">CRIE. JOGUE. <span class="gradient-text">BRILHE.</span></h1>
-                <p class="hero-subtitle">A plataforma de criação de jogos mais avançada da web.</p>
+                <h1 class="hero-title" data-i18n="hero_title">CRIE. JOGUE. <span class="gradient-text"
+                        data-i18n="hero_highlight">BRILHE.</span></h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">A plataforma de criação de jogos mais avançada da
+                    web.</p>
 
                 <div class="auth-box glass-panel">
-                    <h2>Entrar na Plataforma</h2>
-                    <input type="text" id="username-input" placeholder="Seu Nome de Usuário" class="glass-input">
-                    <input type="password" id="password-input" placeholder="Sua Senha Secreta" class="glass-input">
+                    <h2 data-i18n="auth_title">Entrar na Plataforma</h2>
+                    <input type="text" id="username-input" data-i18n-placeholder="ph_username"
+                        placeholder="Seu Nome de Usuário" class="glass-input">
+                    <input type="password" id="password-input" data-i18n-placeholder="ph_password"
+                        placeholder="Sua Senha Secreta" class="glass-input">
                     <p id="auth-message" class="auth-error"></p>
-                    <button id="login-btn" class="main-btn glow-effect">🚀 Começar Aventura</button>
-                    <p class="auth-footer">Crie uma conta ou entre na sua!</p>
+                    <button id="login-btn" class="main-btn glow-effect" data-i18n="login_btn">🚀 Começar
+                        Aventura</button>
+                    <p class="auth-footer" data-i18n="auth_footer">Crie uma conta ou entre na sua!</p>
                 </div>
             </div>
             <div class="bg-orbs">
@@ -124,14 +139,15 @@
 
             <div class="dash-body">
                 <div class="dash-tabs">
-                    <button class="dash-tab active" data-tab="my-projects">Meus Projetos</button>
-                    <button class="dash-tab" data-tab="community">Comunidade</button>
+                    <button class="dash-tab active" data-tab="my-projects" data-i18n="my_projects">Meus
+                        Projetos</button>
+                    <button class="dash-tab" data-tab="community" data-i18n="community">Comunidade</button>
                 </div>
 
                 <div class="projects-grid">
                     <div class="project-card new-project" id="btn-new-project">
                         <div class="card-icon">+</div>
-                        <h3>Novo Jogo</h3>
+                        <h3 data-i18n="new_game">Novo Jogo</h3>
                         <p>Comece do zero</p>
                     </div>
                 </div>
@@ -152,20 +168,20 @@
                 <div class="controls">
                     <button id="save-project-btn" class="control-btn" title="Salvar Projeto"
                         style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white;">
-                        <span>💾 Salvar</span>
+                        <span data-i18n="save_btn">💾 Salvar</span>
                     </button>
                     <button id="publish-btn" class="control-btn run"
                         style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
-                        <span>🌍 Publicar</span>
+                        <span data-i18n="publish_btn">🌍 Publicar</span>
                     </button>
                     <button id="run-btn" class="control-btn run" title="Executar">
-                        <span>▶ Executar</span>
+                        <span data-i18n="run_btn">▶ Executar</span>
                     </button>
                     <button id="stop-btn" class="control-btn stop" title="Parar">
-                        <span>⏹ Parar</span>
+                        <span data-i18n="stop_btn">⏹ Parar</span>
                     </button>
                     <button id="reset-btn" class="control-btn reset" title="Resetar">
-                        <span>⏮ Reset</span>
+                        <span data-i18n="reset_btn">⏮ Reset</span>
                     </button>
                 </div>
             </header>
@@ -175,15 +191,19 @@
                 <!-- Block Palette (Left) -->
                 <section class="palette-panel glass-panel">
                     <div class="panel-header">
-                        <h2>Blocos</h2>
+                        <h2 data-i18n="blocks">Blocos</h2>
                     </div>
                     <div class="category-tabs">
-                        <button class="cat-btn active" data-category="motion"
-                            style="--cat-color: #4C97FF;">Movimento</button>
-                        <button class="cat-btn" data-category="looks" style="--cat-color: #9966FF;">Aparência</button>
-                        <button class="cat-btn" data-category="sound" style="--cat-color: #CF63CF;">Som</button>
-                        <button class="cat-btn" data-category="control" style="--cat-color: #FFAB19;">Controle</button>
-                        <button class="cat-btn" data-category="events" style="--cat-color: #FFBF00;">Eventos</button>
+                        <button class="cat-btn active" data-category="motion" style="--cat-color: #4C97FF;"
+                            data-i18n="cat_motion">Movimento</button>
+                        <button class="cat-btn" data-category="looks" style="--cat-color: #9966FF;"
+                            data-i18n="cat_looks">Aparência</button>
+                        <button class="cat-btn" data-category="sound" style="--cat-color: #CF63CF;"
+                            data-i18n="cat_sound">Som</button>
+                        <button class="cat-btn" data-category="control" style="--cat-color: #FFAB19;"
+                            data-i18n="cat_control">Controle</button>
+                        <button class="cat-btn" data-category="events" style="--cat-color: #FFBF00;"
+                            data-i18n="cat_events">Eventos</button>
                     </div>
                     <div id="block-palette" class="palette-content">
                         <!-- Blocks will be injected here via JS -->
@@ -193,12 +213,12 @@
                 <!-- Workspace (Center) -->
                 <section class="workspace-panel glass-panel">
                     <div class="panel-header">
-                        <h2>Área de Código</h2>
-                        <button id="clear-workspace" class="text-btn">Limpar</button>
+                        <h2 data-i18n="code_area">Área de Código</h2>
+                        <button id="clear-workspace" class="text-btn" data-i18n="clear">Limpar</button>
                     </div>
                     <div id="workspace-area" class="workspace-content">
                         <div class="workspace-grid"></div>
-                        <div class="start-hint">Arraste blocos para cá para começar</div>
+                        <div class="start-hint" data-i18n="drag_hint">Arraste blocos para cá para começar</div>
                         <div id="drag-container"></div>
                     </div>
                 </section>
@@ -207,7 +227,7 @@
                 <section class="stage-panel">
                     <div class="stage-container glass-panel">
                         <div class="panel-header">
-                            <h2>Palco</h2>
+                            <h2 data-i18n="stage">Palco</h2>
                         </div>
                         <div class="canvas-wrapper">
                             <canvas id="stage-canvas" width="480" height="360"></canvas>
@@ -215,13 +235,13 @@
                         <div class="stage-controls">
                             <div class="control-row">
                                 <button id="edit-sprite-btn" class="secondary-btn">
-                                    🎨 Personagem
+                                    <span data-i18n="character_btn">🎨 Personagem</span>
                                 </button>
                                 <button id="bg-change-btn" class="secondary-btn">
-                                    🖼️ Fundo
+                                    <span data-i18n="bg_btn">🖼️ Fundo</span>
                                 </button>
                                 <button id="edit-level-btn" class="secondary-btn">
-                                    🧱 Nível
+                                    <span data-i18n="level_btn">🧱 Nível</span>
                                 </button>
                             </div>
                             <div class="sprite-properties">
@@ -234,7 +254,7 @@
                                     <input type="number" id="prop-y" value="0">
                                 </div>
                                 <div class="prop-group">
-                                    <label>Direção</label>
+                                    <label data-i18n="direction">Direção</label>
                                     <input type="number" id="prop-dir" value="90">
                                 </div>
                             </div>
@@ -243,11 +263,12 @@
 
                     <div class="console-panel glass-panel">
                         <div class="panel-header compact">
-                            <h3>Console</h3>
-                            <button id="clear-console" class="icon-btn" title="Limpar Console">🗑️</button>
+                            <h3 data-i18n="console_title">Console</h3>
+                            <button id="clear-console" class="icon-btn" data-i18n-title="clear_console"
+                                title="Limpar Console">🗑️</button>
                         </div>
                         <div id="console-output" class="console-content">
-                            <div class="log-line system">Pronto para executar.</div>
+                            <div class="log-line system" data-i18n="console_ready">Pronto para executar.</div>
                         </div>
                     </div>
                 </section>
@@ -259,12 +280,12 @@
     <div id="sprite-editor-overlay" class="overlay hidden">
         <div class="editor-modal glass-panel">
             <div class="modal-header">
-                <h2>Editor de Personagem</h2>
+                <h2 data-i18n="sprite_editor_title">Editor de Personagem</h2>
                 <button id="close-editor" class="icon-btn">✕</button>
             </div>
             <div class="editor-body">
                 <div class="import-section">
-                    <label for="import-file" class="secondary-btn">📂 Importar Imagem</label>
+                    <label for="import-file" class="secondary-btn" data-i18n="import_image">📂 Importar Imagem</label>
                     <input type="file" id="import-file" accept="image/*" style="display: none;">
                 </div>
                 <div class="pixel-grid" id="pixel-grid"></div>
@@ -276,10 +297,11 @@
                         <div class="color-swatch" style="--bg: #00ff00" data-color="#00ff00"></div>
                         <div class="color-swatch" style="--bg: #0000ff" data-color="#0000ff"></div>
                         <div class="color-swatch" style="--bg: #ffff00" data-color="#ffff00"></div>
-                        <div class="color-swatch eraser" data-color="transparent" title="Borracha">⬜</div>
+                        <div class="color-swatch eraser" data-color="transparent" data-i18n-title="eraser"
+                            title="Borracha">⬜</div>
                     </div>
                     <input type="color" id="custom-color" value="#4C97FF">
-                    <button id="save-sprite-btn" class="control-btn run">Salvar</button>
+                    <button id="save-sprite-btn" class="control-btn run" data-i18n="save">Salvar</button>
                 </div>
             </div>
         </div>
@@ -289,17 +311,17 @@
     <div id="level-editor-overlay" class="overlay hidden">
         <div class="editor-modal glass-panel">
             <div class="modal-header">
-                <h2>Editor de Nível</h2>
+                <h2 data-i18n="level_editor_title">Editor de Nível</h2>
                 <button id="close-level-editor" class="icon-btn">✕</button>
             </div>
             <div class="editor-body">
                 <div class="level-tools-header">
-                    <p>Clique na grade para adicionar/remover paredes.</p>
-                    <button id="clear-level-btn" class="text-btn">Limpar Tudo</button>
+                    <p data-i18n="level_hint">Clique na grade para adicionar/remover paredes.</p>
+                    <button id="clear-level-btn" class="text-btn" data-i18n="clear_all">Limpar Tudo</button>
                 </div>
                 <div class="level-grid" id="level-grid"></div>
                 <div class="editor-tools">
-                    <button id="save-level-btn" class="control-btn run">Salvar Nível</button>
+                    <button id="save-level-btn" class="control-btn run" data-i18n="save_level">Salvar Nível</button>
                 </div>
             </div>
         </div>
@@ -309,13 +331,13 @@
     <div id="bg-selector-overlay" class="overlay hidden">
         <div class="editor-modal glass-panel">
             <div class="modal-header">
-                <h2>Alterar Fundo</h2>
+                <h2 data-i18n="change_bg">Alterar Fundo</h2>
                 <button id="close-bg-selector" class="icon-btn">✕</button>
             </div>
             <div class="editor-body">
                 <div class="bg-options">
                     <div class="bg-section">
-                        <h3>Cores Sólidas</h3>
+                        <h3 data-i18n="solid_colors">Cores Sólidas</h3>
                         <div class="color-palette" id="bg-color-palette">
                             <div class="color-swatch" style="--bg: #ffffff" data-bg-color="#ffffff"></div>
                             <div class="color-swatch" style="--bg: #000000" data-bg-color="#000000"></div>
@@ -326,16 +348,19 @@
                     </div>
 
                     <div class="bg-section">
-                        <h3>Temas</h3>
+                        <h3 data-i18n="themes">Temas</h3>
                         <div class="theme-buttons">
-                            <button class="secondary-btn" data-bg-theme="platformer">🏞️ Plataforma</button>
-                            <button class="secondary-btn" data-bg-theme="space">✨ Espaço</button>
+                            <button class="secondary-btn" data-bg-theme="platformer" data-i18n="theme_platform">🏞️
+                                Plataforma</button>
+                            <button class="secondary-btn" data-bg-theme="space" data-i18n="theme_space">✨
+                                Espaço</button>
                         </div>
                     </div>
 
                     <div class="bg-section">
-                        <h3>Upload</h3>
-                        <label for="bg-file-import" class="secondary-btn">📂 Carregar Imagem</label>
+                        <h3 data-i18n="upload">Upload</h3>
+                        <label for="bg-file-import" class="secondary-btn" data-i18n="load_image">📂 Carregar
+                            Imagem</label>
                         <input type="file" id="bg-file-import" accept="image/*" style="display: none;">
                     </div>
                 </div>

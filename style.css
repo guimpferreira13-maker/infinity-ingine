@@ -246,6 +246,7 @@ body {
 .palette-panel {
     width: var(--sidebar-width);
     flex-shrink: 0;
+    min-height: 0;
 }
 
 .category-tabs {
@@ -304,7 +305,7 @@ body {
 
 .palette-content {
     flex: 1;
-    overflow-y: auto;
+    overflow: auto;
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -315,16 +316,25 @@ body {
 
 /* Scrollbar for palette */
 .palette-content::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 .palette-content::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
 }
 
 .palette-content::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
+    background: rgba(99, 102, 241, 0.4);
+    border-radius: 4px;
+}
+
+.palette-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.7);
+}
+
+.palette-content::-webkit-scrollbar:horizontal {
+    height: 8px;
 }
 
 .workspace-panel {
@@ -501,6 +511,7 @@ body {
     position: relative;
     transition: transform 0.1s;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
 
 .block:hover {
@@ -1518,6 +1529,82 @@ body {
     animation: highlightPulse 1.5s ease-in-out infinite;
 }
 
+/* Language Selector */
+.lang-selector-landing {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.lang-btn {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: 56px;
+    right: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 170px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    animation: bubbleFadeIn 0.25s ease-out;
+}
+
+.lang-dropdown.hidden {
+    display: none;
+}
+
+.lang-option {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.lang-option:hover {
+    background: rgba(99, 102, 241, 0.2);
+    color: white;
+}
+
+.lang-option.active {
+    background: rgba(99, 102, 241, 0.3);
+    color: white;
+    font-weight: 700;
+}
+
 @keyframes highlightPulse {
 
     0%,
@@ -1527,5 +1614,256 @@ body {
 
     50% {
         box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.8), 0 0 30px rgba(99, 102, 241, 0.5);
+    }
+}
+
+/* ===== RESPONSIVE - TABLET (max 900px) ===== */
+@media (max-width: 900px) {
+    :root {
+        --header-height: 52px;
+        --sidebar-width: 100%;
+        --stage-width: 100%;
+    }
+
+    body {
+        overflow: auto;
+    }
+
+    /* Toolbar */
+    .toolbar {
+        padding: 0 12px;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: var(--header-height);
+        gap: 6px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+        gap: 6px;
+    }
+
+    .controls {
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .control-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        border-radius: 8px;
+    }
+
+    /* Landing / Auth */
+    .hero-title {
+        font-size: 2rem !important;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem !important;
+    }
+
+    .auth-box {
+        width: 90% !important;
+        max-width: 400px;
+        padding: 24px !important;
+    }
+
+    /* Dashboard */
+    .dash-header {
+        padding: 0 12px;
+        height: auto;
+        min-height: 52px;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .user-profile {
+        gap: 6px;
+        padding: 4px 10px;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+        padding: 12px !important;
+        gap: 12px !important;
+    }
+
+    /* Editor: Keep horizontal layout, but smaller */
+    #view-editor {
+        overflow: hidden;
+    }
+
+    .main-layout {
+        flex-direction: row;
+        overflow: hidden;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .palette-panel {
+        width: 220px;
+        flex-shrink: 0;
+    }
+
+    .category-tabs {
+        flex-wrap: wrap;
+        gap: 3px;
+        padding: 6px;
+    }
+
+    .cat-btn {
+        padding: 4px 8px;
+        font-size: 0.65rem;
+    }
+
+    .palette-content {
+        padding: 8px;
+        gap: 6px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* Blocks - scale down for tablet */
+    .block {
+        font-size: 0.75rem;
+        padding: 6px 8px;
+        gap: 5px;
+        white-space: nowrap;
+    }
+
+    .block-input {
+        font-size: 0.7rem;
+        padding: 2px 5px;
+        min-width: 30px;
+    }
+
+    .workspace-panel {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .start-hint {
+        font-size: 1rem;
+    }
+
+    .stage-panel {
+        width: 360px;
+        flex-shrink: 0;
+    }
+
+    .canvas-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 6px;
+    }
+
+    #stage-canvas {
+        width: 320px;
+        height: 240px;
+    }
+
+    .stage-controls {
+        padding: 6px 8px;
+    }
+
+    .stage-controls .control-row {
+        flex-wrap: wrap;
+        gap: 4px;
+        justify-content: center;
+    }
+
+    .stage-controls .secondary-btn {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+
+    .sprite-properties {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .prop-group input {
+        width: 45px;
+        font-size: 0.75rem;
+    }
+
+    /* Console */
+    .console-panel {
+        max-height: 120px;
+    }
+
+    /* Modals / Overlays */
+    .overlay-content,
+    .editor-modal {
+        width: 95% !important;
+        max-width: 95vw !important;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .game-cards {
+        flex-direction: row;
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .game-card {
+        width: 180px;
+        padding: 20px;
+    }
+
+    /* Player View */
+    .stage-wrapper-large {
+        max-width: 100%;
+    }
+
+    .stage-wrapper-large canvas {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Gamepad */
+    .gamepad-overlay {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        justify-content: center;
+        gap: 40px;
+        padding: 10px;
+    }
+
+    /* Tutorial Mascot */
+    .tutorial-mascot {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+    }
+
+    .mascot-bubble {
+        max-width: 280px;
+        min-width: 200px;
+    }
+
+    .mascot-character {
+        font-size: 2.5rem;
+    }
+
+    /* Level editor */
+    .level-grid {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    /* Dragging */
+    .dragging {
+        transform: scale(0.95);
     }
 }
