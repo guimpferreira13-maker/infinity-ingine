@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Code Studio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Game Selection Overlay -->
+    <div id="game-selection-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <h1>Escolha seu estilo de jogo</h1>
+            <p>Comece sua jornada criando algo incrível</p>
+
+            <div class="game-cards">
+                <div class="game-card" data-type="rpg">
+                    <div class="card-icon">⚔️</div>
+                    <h3>RPG 2D</h3>
+                    <p>Crie aventuras top-down com mapas e missões.</p>
+                </div>
+                <div class="game-card" data-type="platformer">
+                    <div class="card-icon">🏃</div>
+                    <h3>Plataforma</h3>
+                    <p>Corra e pule em fases estilo Mario.</p>
+                </div>
+                <div class="game-card" data-type="blank">
+                    <div class="card-icon">✨</div>
+                    <h3>Projeto Vazio</h3>
+                    <p>Comece do zero com sua imaginação.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container">
+
+        <!-- VIEW: LANDING / LOGIN -->
+        <section id="view-landing" class="view-section active-view">
+            <div class="landing-content">
+                <h1 class="hero-title">CRIE. JOGUE. <span class="gradient-text">BRILHE.</span></h1>
+                <p class="hero-subtitle">A plataforma de criação de jogos mais avançada da web.</p>
+
+                <div class="auth-box glass-panel">
+                    <h2>Entrar na Plataforma</h2>
+                    <input type="text" id="username-input" placeholder="Seu Nome de Usuário" class="glass-input">
+                    <input type="password" id="password-input" placeholder="Sua Senha Secreta" class="glass-input">
+                    <p id="auth-message" class="auth-error"></p>
+                    <button id="login-btn" class="main-btn glow-effect">🚀 Começar Aventura</button>
+                    <p class="auth-footer">Crie uma conta ou entre na sua!</p>
+                </div>
+            </div>
+            <div class="bg-orbs">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+            </div>
+        </section>
+
+        <!-- Player View (Unified) -->
+        <section id="view-player" class="view-section hidden">
+            <header class="toolbar">
+                <div class="logo">
+                    <button id="player-back-btn" class="icon-btn" title="Voltar">⬅</button>
+                    <span class="logo-icon">🕹️</span>
+                    <span id="player-project-title">Nome do Jogo</span>
+                </div>
+                <div class="controls">
+                    <button id="player-run-btn" class="control-btn run" title="Executar">
+                        <span>▶ Jogar</span>
+                    </button>
+                    <button id="player-stop-btn" class="control-btn stop" title="Parar">
+                        <span>⏹ Parar</span>
+                    </button>
+                    <button id="player-fullscreen-btn" class="icon-btn" title="Tela Cheia">⛶</button>
+                    <button id="back-to-dash-btn" class="secondary-btn">Voltar</button>
+                </div>
+            </header>
+
+            <div class="player-container">
+                <div class="stage-wrapper-large">
+                    <div id="player-stage-mount"></div>
+                </div>
+
+                <!-- On-Screen Gamepad -->
+                <div class="gamepad-overlay">
+                    <div class="d-pad">
+                        <button class="gp-btn up" data-key="ArrowUp">▲</button>
+                        <button class="gp-btn left" data-key="ArrowLeft">◀</button>
+                        <button class="gp-btn right" data-key="ArrowRight">▶</button>
+                        <button class="gp-btn down" data-key="ArrowDown">▼</button>
+                    </div>
+                    <div class="action-pad">
+                        <button class="gp-btn action-b" data-key="b">B</button>
+                        <button class="gp-btn action-a" data-key=" ">A</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: DASHBOARD -->
+        <section id="view-dashboard" class="view-section hidden">
+            <header class="dash-header">
+                <div class="logo">
+                    <span class="logo-icon">🕹️</span>
+                    <span>InfinityEngine</span>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">👤</div>
+                    <span id="user-display">Visitante</span>
+                    <button id="tutorial-restart-btn" class="icon-btn tutorial-header-btn" title="Rever Tutorial">
+                        🤖
+                        <span class="tutorial-btn-label">Tutorial</span>
+                    </button>
+                    <button id="logout-btn" class="icon-btn" title="Sair">🚪</button>
+                </div>
+            </header>
+
+            <div class="dash-body">
+                <div class="dash-tabs">
+                    <button class="dash-tab active" data-tab="my-projects">Meus Projetos</button>
+                    <button class="dash-tab" data-tab="community">Comunidade</button>
+                </div>
+
+                <div class="projects-grid">
+                    <div class="project-card new-project" id="btn-new-project">
+                        <div class="card-icon">+</div>
+                        <h3>Novo Jogo</h3>
+                        <p>Comece do zero</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- VIEW: EDITOR -->
+        <section id="view-editor" class="view-section hidden">
+            <!-- Header / Toolbar -->
+            <header class="toolbar">
+                <div class="logo">
+                    <button id="editor-back-btn" class="icon-btn" title="Voltar ao Menu">⬅</button>
+                    <span class="logo-icon">⚡</span>
+                    <span>VisualCode</span>
+                </div>
+                <div class="controls">
+                    <button id="save-project-btn" class="control-btn" title="Salvar Projeto"
+                        style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white;">
+                        <span>💾 Salvar</span>
+                    </button>
+                    <button id="publish-btn" class="control-btn run"
+                        style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                        <span>🌍 Publicar</span>
+                    </button>
+                    <button id="run-btn" class="control-btn run" title="Executar">
+                        <span>▶ Executar</span>
+                    </button>
+                    <button id="stop-btn" class="control-btn stop" title="Parar">
+                        <span>⏹ Parar</span>
+                    </button>
+                    <button id="reset-btn" class="control-btn reset" title="Resetar">
+                        <span>⏮ Reset</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-layout">
+                <!-- Block Palette (Left) -->
+                <section class="palette-panel glass-panel">
+                    <div class="panel-header">
+                        <h2>Blocos</h2>
+                    </div>
+                    <div class="category-tabs">
+                        <button class="cat-btn active" data-category="motion"
+                            style="--cat-color: #4C97FF;">Movimento</button>
+                        <button class="cat-btn" data-category="looks" style="--cat-color: #9966FF;">Aparência</button>
+                        <button class="cat-btn" data-category="sound" style="--cat-color: #CF63CF;">Som</button>
+                        <button class="cat-btn" data-category="control" style="--cat-color: #FFAB19;">Controle</button>
+                        <button class="cat-btn" data-category="events" style="--cat-color: #FFBF00;">Eventos</button>
+                    </div>
+                    <div id="block-palette" class="palette-content">
+                        <!-- Blocks will be injected here via JS -->
+                    </div>
+                </section>
+
+                <!-- Workspace (Center) -->
+                <section class="workspace-panel glass-panel">
+                    <div class="panel-header">
+                        <h2>Área de Código</h2>
+                        <button id="clear-workspace" class="text-btn">Limpar</button>
+                    </div>
+                    <div id="workspace-area" class="workspace-content">
+                        <div class="workspace-grid"></div>
+                        <div class="start-hint">Arraste blocos para cá para começar</div>
+                        <div id="drag-container"></div>
+                    </div>
+                </section>
+
+                <!-- Stage (Right) -->
+                <section class="stage-panel">
+                    <div class="stage-container glass-panel">
+                        <div class="panel-header">
+                            <h2>Palco</h2>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="stage-canvas" width="480" height="360"></canvas>
+                        </div>
+                        <div class="stage-controls">
+                            <div class="control-row">
+                                <button id="edit-sprite-btn" class="secondary-btn">
+                                    🎨 Personagem
+                                </button>
+                                <button id="bg-change-btn" class="secondary-btn">
+                                    🖼️ Fundo
+                                </button>
+                                <button id="edit-level-btn" class="secondary-btn">
+                                    🧱 Nível
+                                </button>
+                            </div>
+                            <div class="sprite-properties">
+                                <div class="prop-group">
+                                    <label>X</label>
+                                    <input type="number" id="prop-x" value="0">
+                                </div>
+                                <div class="prop-group">
+                                    <label>Y</label>
+                                    <input type="number" id="prop-y" value="0">
+                                </div>
+                                <div class="prop-group">
+                                    <label>Direção</label>
+                                    <input type="number" id="prop-dir" value="90">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="console-panel glass-panel">
+                        <div class="panel-header compact">
+                            <h3>Console</h3>
+                            <button id="clear-console" class="icon-btn" title="Limpar Console">🗑️</button>
+                        </div>
+                        <div id="console-output" class="console-content">
+                            <div class="log-line system">Pronto para executar.</div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </section>
+    </div>
+
+    <!-- Sprite Editor Modal -->
+    <div id="sprite-editor-overlay" class="overlay hidden">
+        <div class="editor-modal glass-panel">
+            <div class="modal-header">
+                <h2>Editor de Personagem</h2>
+                <button id="close-editor" class="icon-btn">✕</button>
+            </div>
+            <div class="editor-body">
+                <div class="import-section">
+                    <label for="import-file" class="secondary-btn">📂 Importar Imagem</label>
+                    <input type="file" id="import-file" accept="image/*" style="display: none;">
+                </div>
+                <div class="pixel-grid" id="pixel-grid"></div>
+                <div class="editor-tools">
+                    <div class="color-palette">
+                        <div class="color-swatch active" style="--bg: #000000" data-color="#000000"></div>
+                        <div class="color-swatch" style="--bg: #ffffff" data-color="#ffffff"></div>
+                        <div class="color-swatch" style="--bg: #ff0000" data-color="#ff0000"></div>
+                        <div class="color-swatch" style="--bg: #00ff00" data-color="#00ff00"></div>
+                        <div class="color-swatch" style="--bg: #0000ff" data-color="#0000ff"></div>
+                        <div class="color-swatch" style="--bg: #ffff00" data-color="#ffff00"></div>
+                        <div class="color-swatch eraser" data-color="transparent" title="Borracha">⬜</div>
+                    </div>
+                    <input type="color" id="custom-color" value="#4C97FF">
+                    <button id="save-sprite-btn" class="control-btn run">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Level Editor Modal -->
+    <div id="level-editor-overlay" class="overlay hidden">
+        <div class="editor-modal glass-panel">
+            <div class="modal-header">
+                <h2>Editor de Nível</h2>
+                <button id="close-level-editor" class="icon-btn">✕</button>
+            </div>
+            <div class="editor-body">
+                <div class="level-tools-header">
+                    <p>Clique na grade para adicionar/remover paredes.</p>
+                    <button id="clear-level-btn" class="text-btn">Limpar Tudo</button>
+                </div>
+                <div class="level-grid" id="level-grid"></div>
+                <div class="editor-tools">
+                    <button id="save-level-btn" class="control-btn run">Salvar Nível</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Selection Modal -->
+    <div id="bg-selector-overlay" class="overlay hidden">
+        <div class="editor-modal glass-panel">
+            <div class="modal-header">
+                <h2>Alterar Fundo</h2>
+                <button id="close-bg-selector" class="icon-btn">✕</button>
+            </div>
+            <div class="editor-body">
+                <div class="bg-options">
+                    <div class="bg-section">
+                        <h3>Cores Sólidas</h3>
+                        <div class="color-palette" id="bg-color-palette">
+                            <div class="color-swatch" style="--bg: #ffffff" data-bg-color="#ffffff"></div>
+                            <div class="color-swatch" style="--bg: #000000" data-bg-color="#000000"></div>
+                            <div class="color-swatch" style="--bg: #87CEEB" data-bg-color="#87CEEB"></div>
+                            <div class="color-swatch" style="--bg: #1e1e1e" data-bg-color="#1e1e1e"></div>
+                            <input type="color" id="bg-custom-color" value="#ffffff">
+                        </div>
+                    </div>
+
+                    <div class="bg-section">
+                        <h3>Temas</h3>
+                        <div class="theme-buttons">
+                            <button class="secondary-btn" data-bg-theme="platformer">🏞️ Plataforma</button>
+                            <button class="secondary-btn" data-bg-theme="space">✨ Espaço</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-section">
+                        <h3>Upload</h3>
+                        <label for="bg-file-import" class="secondary-btn">📂 Carregar Imagem</label>
+                        <input type="file" id="bg-file-import" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial Mascot -->
+    <div id="tutorial-mascot" class="tutorial-mascot hidden">
+        <div class="mascot-character" id="mascot-char">
+            🤖
+            <span class="mascot-label">Tutorial</span>
+        </div>
+        <div class="mascot-bubble" id="mascot-bubble">
+            <div class="bubble-text" id="mascot-text"></div>
+            <div class="bubble-actions">
+                <span class="bubble-step" id="mascot-step"></span>
+                <div class="bubble-btns">
+                    <button id="mascot-skip" class="mascot-btn skip">Pular</button>
+                    <button id="mascot-next" class="mascot-btn next">Próximo ➜</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="blocks.js"></script>
+    <script src="stage.js"></script>
+    <script src="interpreter.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
