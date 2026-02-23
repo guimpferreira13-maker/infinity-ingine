@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             demo_created: "🎮 Demo 'Mario Control' criado com sucesso!\nUse as Setas e Espaço para jogar.",
             // Level Tooltips
             clear_console_tooltip: 'Limpar Console',
+            trash_blocks: 'Solte aqui para apagar',
             // Mascot & Tutorial
             tutorial_label: 'Tutorial',
             mascot_skip: 'Pular',
@@ -208,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             demo_created: "🎮 'Mario Control' demo created successfully!\nUse Arrows and Space to play.",
             // Level Tooltips
             clear_console_tooltip: 'Clear Console',
+            trash_blocks: 'Drop here to delete',
             // Mascot & Tutorial
             tutorial_label: 'Tutorial',
             mascot_skip: 'Skip',
@@ -318,6 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
             demo_created: "🎮 ¡Demo 'Mario Control' creado con éxito!\nUsa las Flechas y el Espacio para jugar.",
             // Level Tooltips
             clear_console_tooltip: 'Limpiar Consola',
+            trash_blocks: 'Suelta aquí para borrar',
             // Mascot & Tutorial
             tutorial_label: 'Tutorial',
             mascot_skip: 'Saltar',
@@ -1268,6 +1271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Drag & Drop Logic ---
+    const blockTrash = document.getElementById('block-trash');
 
     // Helper to get position from mouse or touch event
     function getPointerPos(e) {
@@ -1302,6 +1306,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(draggedBlock);
         isDraggingFromPalette = true;
 
+        // Show trash zone
+        if (blockTrash) blockTrash.classList.remove('hidden');
+
         document.addEventListener('mousemove', onDrag);
         document.addEventListener('mouseup', onDrop);
         document.addEventListener('touchmove', onDrag, { passive: false });
@@ -1334,6 +1341,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         isDraggingFromPalette = false;
 
+        // Show trash zone
+        if (blockTrash) blockTrash.classList.remove('hidden');
+
         document.addEventListener('mousemove', onDrag);
         document.addEventListener('mouseup', onDrop);
         document.addEventListener('touchmove', onDrag, { passive: false });
@@ -1351,6 +1361,19 @@ document.addEventListener('DOMContentLoaded', () => {
         draggedBlock.style.left = x + 'px';
         draggedBlock.style.top = y + 'px';
 
+        // Detect hover over trash zone
+        if (blockTrash) {
+            const trashRect = blockTrash.getBoundingClientRect();
+            const blockRect = draggedBlock.getBoundingClientRect();
+            const overTrash = (
+                blockRect.left < trashRect.right &&
+                blockRect.right > trashRect.left &&
+                blockRect.top < trashRect.bottom &&
+                blockRect.bottom > trashRect.top
+            );
+            blockTrash.classList.toggle('drag-over', overTrash);
+        }
+
         checkSnapping(draggedBlock);
     }
 
@@ -1364,9 +1387,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         draggedBlock.classList.remove('dragging');
 
+        // Hide trash zone
+        if (blockTrash) {
+            blockTrash.classList.add('hidden');
+            blockTrash.classList.remove('drag-over');
+        }
+
+        // Check if dropped on trash zone
+        const blockRect = draggedBlock.getBoundingClientRect();
+        let droppedOnTrash = false;
+        if (blockTrash) {
+            const trashRect = blockTrash.getBoundingClientRect();
+            droppedOnTrash = (
+                blockRect.left < trashRect.right &&
+                blockRect.right > trashRect.left &&
+                blockRect.top < trashRect.bottom &&
+                blockRect.bottom > trashRect.top
+            );
+        }
+
+        if (droppedOnTrash) {
+            // Delete the block
+            draggedBlock.remove();
+            UiSounds.trash();
+            draggedBlock = null;
+            return;
+        }
+
         // Check if dropped inside workspace
         const workspaceRect = workspaceEl.getBoundingClientRect();
-        const blockRect = draggedBlock.getBoundingClientRect();
 
         // Overlap detection
         const inWorkspace = (
