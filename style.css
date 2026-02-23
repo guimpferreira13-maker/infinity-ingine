@@ -1614,7 +1614,7 @@ body {
 
 .tutorial-dim.active {
     opacity: 1;
-    pointer-events: auto;
+    pointer-events: none;
 }
 
 /* Block Card inside Tutorial */
