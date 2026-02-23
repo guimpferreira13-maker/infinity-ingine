@@ -1416,7 +1416,8 @@ body {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    z-index: 10000;
+    z-index: 10020;
+    /* Above dimming (10000) and highlight (10010) */
     display: flex;
     align-items: flex-end;
     gap: 10px;
@@ -1589,8 +1590,8 @@ body {
 /* Tutorial highlight overlay */
 .tutorial-highlight {
     position: relative;
-    z-index: 10001;
-    /* Above dimming */
+    z-index: 10010;
+    /* Above dimming (10000) */
     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.6), 0 0 30px rgba(99, 102, 241, 0.5);
     border-radius: 8px;
     animation: highlightPulse 1.5s ease-in-out infinite;

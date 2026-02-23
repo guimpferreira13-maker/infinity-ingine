@@ -2458,8 +2458,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Automatic view switching
         if (step.view === 'dashboard') {
-            switchView('dashboard');
-            renderDashboard('my-projects');
+            if (views.dashboard.classList.contains('hidden')) {
+                switchView('dashboard');
+                renderDashboard('my-projects');
+            }
         } else if (step.view === 'editor') {
             if (views.editor.classList.contains('hidden')) {
                 // Mock opening a project if none active
@@ -2480,7 +2482,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         } else if (step.view === 'landing') {
-            switchView('landing');
+            // Only switch to landing if we are NOT logged in
+            if (!userMgr.isLoggedIn()) {
+                switchView('landing');
+            }
         }
 
         // Handle dimming focus
