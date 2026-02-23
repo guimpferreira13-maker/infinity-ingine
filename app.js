@@ -1,126 +1,126 @@
-/**
+﻿/**
  * app.js
  * Main application entry point. Handles Drag & Drop and UI wiring.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
     // ===== INTERNATIONALIZATION (i18n) =====
     const TRANSLATIONS = {
         pt: {
             hero_title: 'CRIE. JOGUE. <span class="gradient-text" data-i18n="hero_highlight">BRILHE.</span>',
             hero_highlight: 'BRILHE.',
-            hero_subtitle: 'A plataforma de criação de jogos mais avançada da web.',
+            hero_subtitle: 'A plataforma de criaÃ§Ã£o de jogos mais avanÃ§ada da web.',
             auth_title: 'Entrar na Plataforma',
-            ph_username: 'Seu Nome de Usuário',
+            ph_username: 'Seu Nome de UsuÃ¡rio',
             ph_password: 'Sua Senha Secreta',
-            login_btn: '🚀 Começar Aventura',
+            login_btn: 'ðŸš€ ComeÃ§ar Aventura',
             auth_footer: 'Crie uma conta ou entre na sua!',
             choose_style: 'Escolha seu estilo de jogo',
-            start_journey: 'Comece sua jornada criando algo incrível',
+            start_journey: 'Comece sua jornada criando algo incrÃ­vel',
             rpg_title: 'RPG 2D',
-            rpg_desc: 'Crie aventuras top-down com mapas e missões.',
+            rpg_desc: 'Crie aventuras top-down com mapas e missÃµes.',
             platform_title: 'Plataforma',
             platform_desc: 'Corra e pule em fases estilo Mario.',
             blank_title: 'Projeto Vazio',
-            blank_desc: 'Comece do zero com sua imaginação.',
+            blank_desc: 'Comece do zero com sua imaginaÃ§Ã£o.',
             my_projects: 'Meus Projetos',
             community: 'Comunidade',
             new_game: 'Novo Jogo',
-            save_btn: '💾 Salvar',
-            publish_btn: '🌍 Publicar',
-            run_btn: '▶ Executar',
-            stop_btn: '⏹ Parar',
-            reset_btn: '⏮ Reset',
+            save_btn: 'ðŸ’¾ Salvar',
+            publish_btn: 'ðŸŒ Publicar',
+            run_btn: 'â–¶ Executar',
+            stop_btn: 'â¹ Parar',
+            reset_btn: 'â® Reset',
             blocks: 'Blocos',
             cat_motion: 'Movimento',
-            cat_looks: 'Aparência',
+            cat_looks: 'AparÃªncia',
             cat_sound: 'Som',
             cat_control: 'Controle',
-            cat_logic: 'Lógica',
-            cat_variables: 'Variáveis',
+            cat_logic: 'LÃ³gica',
+            cat_variables: 'VariÃ¡veis',
             cat_events: 'Eventos',
-            code_area: 'Área de Código',
+            code_area: 'Ãrea de CÃ³digo',
             clear: 'Limpar',
-            drag_hint: 'Arraste blocos para cá para começar',
+            drag_hint: 'Arraste blocos para cÃ¡ para comeÃ§ar',
             stage: 'Palco',
-            character_btn: '🎨 Personagem',
-            bg_btn: '🖼️ Fundo',
-            level_btn: '🧱 Nível',
-            direction: 'Direção',
+            character_btn: 'ðŸŽ¨ Personagem',
+            bg_btn: 'ðŸ–¼ï¸ Fundo',
+            level_btn: 'ðŸ§± NÃ­vel',
+            direction: 'DireÃ§Ã£o',
             // Console
             console_title: 'Console',
             clear_console: 'Limpar Console',
             console_ready: 'Pronto para executar.',
             // Sprite Editor
             sprite_editor_title: 'Editor de Personagem',
-            import_image: '📂 Importar Imagem',
+            import_image: 'ðŸ“‚ Importar Imagem',
             save: 'Salvar',
             eraser: 'Borracha',
             // Level Editor
-            level_editor_title: 'Editor de Nível',
+            level_editor_title: 'Editor de NÃ­vel',
             level_hint: 'Clique na grade para adicionar/remover paredes.',
             clear_all: 'Limpar Tudo',
-            save_level: 'Salvar Nível',
+            save_level: 'Salvar NÃ­vel',
             brush_label: 'Pincel:',
-            brush_obstacle: '🧱 Obstáculo',
-            brush_goal: '🏁 Meta',
-            brush_enemy: '👾 Inimigo',
-            edit_enemy: '🎨 Editar Inimigo',
+            brush_obstacle: 'ðŸ§± ObstÃ¡culo',
+            brush_goal: 'ðŸ Meta',
+            brush_enemy: 'ðŸ‘¾ Inimigo',
+            edit_enemy: 'ðŸŽ¨ Editar Inimigo',
             // Enemy Editor
-            enemy_editor_title: 'Editor de Inimigo 👾',
-            enemy_import: '📂 Importar Imagem',
-            enemy_clear: '🗑️ Limpar',
+            enemy_editor_title: 'Editor de Inimigo ðŸ‘¾',
+            enemy_import: 'ðŸ“‚ Importar Imagem',
+            enemy_clear: 'ðŸ—‘ï¸ Limpar',
             enemy_save: 'Salvar',
             // Background
             change_bg: 'Alterar Fundo',
-            solid_colors: 'Cores Sólidas',
+            solid_colors: 'Cores SÃ³lidas',
             themes: 'Temas',
-            theme_platform: '🏞️ Plataforma',
-            theme_space: '✨ Espaço',
+            theme_platform: 'ðŸžï¸ Plataforma',
+            theme_space: 'âœ¨ EspaÃ§o',
             upload: 'Upload',
-            load_image: '📂 Carregar Imagem',
+            load_image: 'ðŸ“‚ Carregar Imagem',
             // Community & Dashboard
             no_community_games: 'Nenhum jogo publicado ainda. Seja o primeiro!',
-            no_my_games: 'Você ainda não tem jogos salvos 🕵️‍♂️',
-            create_first_game: 'Crie um Novo Jogo para começar!',
+            no_my_games: 'VocÃª ainda nÃ£o tem jogos salvos ðŸ•µï¸â€â™‚ï¸',
+            create_first_game: 'Crie um Novo Jogo para comeÃ§ar!',
             nothing_here: 'Nada por aqui... ainda!',
-            error_loading: 'Aparentemente não há jogos para exibir ou ocorreu um erro ao carregá-los.',
-            use_new_card: 'Use o cartão <b>+ Novo Jogo</b> para criar o seu!',
+            error_loading: 'Aparentemente nÃ£o hÃ¡ jogos para exibir ou ocorreu um erro ao carregÃ¡-los.',
+            use_new_card: 'Use o cartÃ£o <b>+ Novo Jogo</b> para criar o seu!',
             be_first_publish: 'Seja o primeiro a publicar um jogo na comunidade!',
-            laptop_warning: '💻 Os jogos da comunidade apenas podem ser testados/jogados no computador.',
+            laptop_warning: 'ðŸ’» Os jogos da comunidade apenas podem ser testados/jogados no computador.',
             note_label: 'NOTA',
             by_author: 'Por:',
-            anon_author: 'Anônimo',
-            no_title: 'Sem Título',
+            anon_author: 'AnÃ´nimo',
+            no_title: 'Sem TÃ­tulo',
             // Alerts
-            err_user_not_found: "❌ Usuário não encontrado.",
-            err_wrong_pass: "🔒 Senha incorreta!",
-            err_fill_auth: "⚠️ Preencha nome e senha!",
-            err_save: "❌ Erro ao salvar: Armazenamento cheio ou bloqueado!",
-            err_storage_full: "❌ Erro: Espaço de armazenamento cheio! Não foi possível publicar.\nTente excluir alguns projetos antigos.",
-            demo_created: "🎮 Demo 'Mario Control' criado com sucesso!\nUse as Setas e Espaço para jogar.",
+            err_user_not_found: "âŒ UsuÃ¡rio nÃ£o encontrado.",
+            err_wrong_pass: "ðŸ”’ Senha incorreta!",
+            err_fill_auth: "âš ï¸ Preencha nome e senha!",
+            err_save: "âŒ Erro ao salvar: Armazenamento cheio ou bloqueado!",
+            err_storage_full: "âŒ Erro: EspaÃ§o de armazenamento cheio! NÃ£o foi possÃ­vel publicar.\nTente excluir alguns projetos antigos.",
+            demo_created: "ðŸŽ® Demo 'Mario Control' criado com sucesso!\nUse as Setas e EspaÃ§o para jogar.",
             // Level Tooltips
             clear_console_tooltip: 'Limpar Console',
             trash_blocks: 'Solte aqui para apagar',
             // Mascot & Tutorial
             tutorial_label: 'Tutorial',
             mascot_skip: 'Pular',
-            mascot_next: 'Próximo ➜',
-            mascot_start: 'Começar! 🚀',
-            tut_step_1: '<span class="emoji-big">👋</span>Olá! Eu sou o <strong>Bit</strong>. Vamos aprender a criar o teu primeiro jogo em 1 minuto?',
-            tut_step_2: 'Clica aqui no robô 🤖 para começares a tua aventura de criador!',
-            tut_step_3: '<span class="emoji-big">🧩</span>Bem-vindo ao Editor. Aqui, estes <strong>Blocos</strong> coloridos são as tuas "ordens" para o jogo.',
-            tut_step_4: '<div class="tutorial-block-card"><div class="block-preview" style="background:#FFBF00">🏁</div><div class="block-info"><span class="block-name">Eventos</span><span class="block-desc">Blocos amarelos decidem QUANDO algo acontece.</span></div></div>Nada começa sem um gatilho!',
+            mascot_next: 'PrÃ³ximo âžœ',
+            mascot_start: 'ComeÃ§ar! ðŸš€',
+            tut_step_1: '<span class="emoji-big">ðŸ‘‹</span>OlÃ¡! Eu sou o <strong>Bit</strong>. Vamos aprender a criar o teu primeiro jogo em 1 minuto?',
+            tut_step_2: 'Clica aqui no robÃ´ ðŸ¤– para comeÃ§ares a tua aventura de criador!',
+            tut_step_3: '<span class="emoji-big">ðŸ§©</span>Bem-vindo ao Editor. Aqui, estes <strong>Blocos</strong> coloridos sÃ£o as tuas "ordens" para o jogo.',
+            tut_step_4: '<div class="tutorial-block-card"><div class="block-preview" style="background:#FFBF00">ðŸ</div><div class="block-info"><span class="block-name">Eventos</span><span class="block-desc">Blocos amarelos decidem QUANDO algo acontece.</span></div></div>Nada comeÃ§a sem um gatilho!',
             tut_step_5: 'Primeiro desafio: Clica na aba amarela e procura o bloco <strong>"Quando tecla seta direita pressionada"</strong>.',
-            tut_step_6: '<div class="tutorial-block-card"><div class="block-preview" style="background:#4C97FF">👟</div><div class="block-info"><span class="block-name">Movimento</span><span class="block-desc">Blocos azuis servem para dar vida e movimento!</span></div></div>Vamos fazer o herói andar.',
+            tut_step_6: '<div class="tutorial-block-card"><div class="block-preview" style="background:#4C97FF">ðŸ‘Ÿ</div><div class="block-info"><span class="block-name">Movimento</span><span class="block-desc">Blocos azuis servem para dar vida e movimento!</span></div></div>Vamos fazer o herÃ³i andar.',
             tut_step_7: 'Segundo desafio: Clica na aba azul e arrasta o bloco <strong>"Mover 10 passos"</strong> para o lado.',
-            tut_step_8: 'Agora encaixa os dois! Acabaste de programar: <em>"Quando eu carregar na tecla -> O herói move-se"</em>. Incrível!',
-            tut_step_9: '🎬 Este é o <strong>Palco</strong>. É aqui que vês o teu herói e o teu mundo ganhar vida.',
-            tut_step_10: 'Hora do teste! Clica em <strong>▶ Executar</strong> para ligar o motor e depois pressiona a tecla que escolheste. Está vivo!',
-            tut_step_11: '🎨 Queres mudar o herói, o fundo ou desenhar obstáculos? Usa estes botões mágicos.',
-            tut_step_12: '💾 Não te esqueças de <strong>Guardar</strong> ou <strong>Publicar</strong> para outros jogarem o teu nível!',
-            tut_step_13: '<span class="emoji-big">🚀</span>Parabéns! Já és um programador. Agora o limite é a tua imaginação. Diverte-te!'
+            tut_step_8: 'Agora encaixa os dois! Acabaste de programar: <em>"Quando eu carregar na tecla -> O herÃ³i move-se"</em>. IncrÃ­vel!',
+            tut_step_9: 'ðŸŽ¬ Este Ã© o <strong>Palco</strong>. Ã‰ aqui que vÃªs o teu herÃ³i e o teu mundo ganhar vida.',
+            tut_step_10: 'Hora do teste! Clica em <strong>â–¶ Executar</strong> para ligar o motor e depois pressiona a tecla que escolheste. EstÃ¡ vivo!',
+            tut_step_11: 'ðŸŽ¨ Queres mudar o herÃ³i, o fundo ou desenhar obstÃ¡culos? Usa estes botÃµes mÃ¡gicos.',
+            tut_step_12: 'ðŸ’¾ NÃ£o te esqueÃ§as de <strong>Guardar</strong> ou <strong>Publicar</strong> para outros jogarem o teu nÃ­vel!',
+            tut_step_13: '<span class="emoji-big">ðŸš€</span>ParabÃ©ns! JÃ¡ Ã©s um programador. Agora o limite Ã© a tua imaginaÃ§Ã£o. Diverte-te!'
         },
         en: {
             hero_title: 'CREATE. PLAY. <span class="gradient-text" data-i18n="hero_highlight">SHINE.</span>',
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             auth_title: 'Sign In',
             ph_username: 'Your Username',
             ph_password: 'Your Secret Password',
-            login_btn: '🚀 Start Adventure',
+            login_btn: 'ðŸš€ Start Adventure',
             auth_footer: 'Create an account or sign in!',
             choose_style: 'Choose your game style',
             start_journey: 'Start your journey creating something amazing',
@@ -142,11 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
             my_projects: 'My Projects',
             community: 'Community',
             new_game: 'New Game',
-            save_btn: '💾 Save',
-            publish_btn: '🌍 Publish',
-            run_btn: '▶ Run',
-            stop_btn: '⏹ Stop',
-            reset_btn: '⏮ Reset',
+            save_btn: 'ðŸ’¾ Save',
+            publish_btn: 'ðŸŒ Publish',
+            run_btn: 'â–¶ Run',
+            stop_btn: 'â¹ Stop',
+            reset_btn: 'â® Reset',
             blocks: 'Blocks',
             cat_motion: 'Motion',
             cat_looks: 'Looks',
@@ -159,9 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
             clear: 'Clear',
             drag_hint: 'Drag blocks here to start',
             stage: 'Stage',
-            character_btn: '🎨 Character',
-            bg_btn: '🖼️ Background',
-            level_btn: '🧱 Level',
+            character_btn: 'ðŸŽ¨ Character',
+            bg_btn: 'ðŸ–¼ï¸ Background',
+            level_btn: 'ðŸ§± Level',
             direction: 'Direction',
             // Console
             console_title: 'Console',
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console_ready: 'Ready to run.',
             // Sprite Editor
             sprite_editor_title: 'Character Editor',
-            import_image: '📂 Import Image',
+            import_image: 'ðŸ“‚ Import Image',
             save: 'Save',
             eraser: 'Eraser',
             // Level Editor
@@ -178,204 +178,204 @@ document.addEventListener('DOMContentLoaded', () => {
             clear_all: 'Clear All',
             save_level: 'Save Level',
             brush_label: 'Brush:',
-            brush_obstacle: '🧱 Obstacle',
-            brush_goal: '🏁 Goal',
-            brush_enemy: '👾 Enemy',
-            edit_enemy: '🎨 Edit Enemy',
+            brush_obstacle: 'ðŸ§± Obstacle',
+            brush_goal: 'ðŸ Goal',
+            brush_enemy: 'ðŸ‘¾ Enemy',
+            edit_enemy: 'ðŸŽ¨ Edit Enemy',
             // Enemy Editor
-            enemy_editor_title: 'Enemy Editor 👾',
-            enemy_import: '📂 Import Image',
-            enemy_clear: '🗑️ Clear',
+            enemy_editor_title: 'Enemy Editor ðŸ‘¾',
+            enemy_import: 'ðŸ“‚ Import Image',
+            enemy_clear: 'ðŸ—‘ï¸ Clear',
             enemy_save: 'Save',
             // Background
             change_bg: 'Change Background',
             solid_colors: 'Solid Colors',
             themes: 'Themes',
-            theme_platform: '🏞️ Platformer',
-            theme_space: '✨ Space',
+            theme_platform: 'ðŸžï¸ Platformer',
+            theme_space: 'âœ¨ Space',
             upload: 'Upload',
-            load_image: '📂 Load Image',
+            load_image: 'ðŸ“‚ Load Image',
             // Community & Dashboard
             no_community_games: 'No published games yet. Be the first!',
-            no_my_games: 'You have no saved games yet 🕵️‍♂️',
+            no_my_games: 'You have no saved games yet ðŸ•µï¸â€â™‚ï¸',
             create_first_game: 'Create a New Game to start!',
             nothing_here: 'Nothing here... yet!',
             error_loading: 'Apparently there are no games to display or an error occurred while loading them.',
             use_new_card: 'Use the <b>+ New Game</b> card to create yours!',
             be_first_publish: 'Be the first to publish a game to the community!',
-            laptop_warning: '💻 Community games can only be tested/played on a computer.',
+            laptop_warning: 'ðŸ’» Community games can only be tested/played on a computer.',
             note_label: 'NOTE',
             by_author: 'By:',
             anon_author: 'Anonymous',
             no_title: 'Untitled',
             // Alerts
-            err_user_not_found: "❌ User not found.",
-            err_wrong_pass: "🔒 Incorrect password!",
-            err_fill_auth: "⚠️ Fill in name and password!",
-            err_save: "❌ Error saving: Storage full or blocked!",
-            err_storage_full: "❌ Error: Storage space full! Could not publish.\nTry deleting some old projects.",
-            demo_created: "🎮 'Mario Control' demo created successfully!\nUse Arrows and Space to play.",
+            err_user_not_found: "âŒ User not found.",
+            err_wrong_pass: "ðŸ”’ Incorrect password!",
+            err_fill_auth: "âš ï¸ Fill in name and password!",
+            err_save: "âŒ Error saving: Storage full or blocked!",
+            err_storage_full: "âŒ Error: Storage space full! Could not publish.\nTry deleting some old projects.",
+            demo_created: "ðŸŽ® 'Mario Control' demo created successfully!\nUse Arrows and Space to play.",
             // Level Tooltips
             clear_console_tooltip: 'Clear Console',
             trash_blocks: 'Drop here to delete',
             // Mascot & Tutorial
             tutorial_label: 'Tutorial',
             mascot_skip: 'Skip',
-            mascot_next: 'Next ➜',
-            mascot_start: 'Start! 🚀',
-            tut_step_1: '<span class="emoji-big">👋</span>Hi! I\'m <strong>Bit</strong>. Let\'s learn how to create your first game in 1 minute?',
-            tut_step_2: 'Click here on the robot 🤖 to start your creator adventure!',
-            tut_step_3: '<span class="emoji-big">🧩</span>Welcome to the Editor. Here, these colorido <strong>Blocks</strong> are your "orders" for the game.',
-            tut_step_4: '<div class="tutorial-block-card"><div class="block-preview" style="background:#FFBF00">🏁</div><div class="block-info"><span class="block-name">Events</span><span class="block-desc">Yellow blocks decide WHEN something happens.</span></div></div>Nothing starts without a trigger!',
+            mascot_next: 'Next âžœ',
+            mascot_start: 'Start! ðŸš€',
+            tut_step_1: '<span class="emoji-big">ðŸ‘‹</span>Hi! I\'m <strong>Bit</strong>. Let\'s learn how to create your first game in 1 minute?',
+            tut_step_2: 'Click here on the robot ðŸ¤– to start your creator adventure!',
+            tut_step_3: '<span class="emoji-big">ðŸ§©</span>Welcome to the Editor. Here, these colorido <strong>Blocks</strong> are your "orders" for the game.',
+            tut_step_4: '<div class="tutorial-block-card"><div class="block-preview" style="background:#FFBF00">ðŸ</div><div class="block-info"><span class="block-name">Events</span><span class="block-desc">Yellow blocks decide WHEN something happens.</span></div></div>Nothing starts without a trigger!',
             tut_step_5: 'First challenge: Click on the yellow tab and look for the <strong>"When right arrow key pressed"</strong> block.',
-            tut_step_6: '<div class="tutorial-block-card"><div class="block-preview" style="background:#4C97FF">👟</div><div class="block-info"><span class="block-name">Motion</span><span class="block-desc">Blue blocks are for life and movement!</span></div></div>Let\'s make the hero walk.',
+            tut_step_6: '<div class="tutorial-block-card"><div class="block-preview" style="background:#4C97FF">ðŸ‘Ÿ</div><div class="block-info"><span class="block-name">Motion</span><span class="block-desc">Blue blocks are for life and movement!</span></div></div>Let\'s make the hero walk.',
             tut_step_7: 'Second challenge: Click on the blue tab and drag the <strong>"Move 10 steps"</strong> block to the side.',
             tut_step_8: 'Now snap them together! You just programmed: <em>"When I press the key -> The hero moves"</em>. Amazing!',
-            tut_step_9: '🎬 This is the <strong>Stage</strong>. This is where you see your hero and your world come to life.',
-            tut_step_10: 'Test time! Click <strong>▶ Run</strong> to start the engine, then press the key you chose. It\'s alive!',
-            tut_step_11: '🎨 Want to change the hero, the background or draw obstacles? Use these magic buttons.',
-            tut_step_12: '💾 Don\'t forget to <strong>Save</strong> or <strong>Publish</strong> for others to play your level!',
-            tut_step_13: '<span class="emoji-big">🚀</span>Congratulations! You\'re officially a programmer. Now your imagination is the limit. Have fun!'
+            tut_step_9: 'ðŸŽ¬ This is the <strong>Stage</strong>. This is where you see your hero and your world come to life.',
+            tut_step_10: 'Test time! Click <strong>â–¶ Run</strong> to start the engine, then press the key you chose. It\'s alive!',
+            tut_step_11: 'ðŸŽ¨ Want to change the hero, the background or draw obstacles? Use these magic buttons.',
+            tut_step_12: 'ðŸ’¾ Don\'t forget to <strong>Save</strong> or <strong>Publish</strong> for others to play your level!',
+            tut_step_13: '<span class="emoji-big">ðŸš€</span>Congratulations! You\'re officially a programmer. Now your imagination is the limit. Have fun!'
         },
         es: {
             hero_title: 'CREA. JUEGA. <span class="gradient-text" data-i18n="hero_highlight">BRILLA.</span>',
             hero_highlight: 'BRILLA.',
-            hero_subtitle: 'La plataforma de creación de juegos más avanzada de la web.',
-            auth_title: 'Iniciar Sesión',
+            hero_subtitle: 'La plataforma de creaciÃ³n de juegos mÃ¡s avanzada de la web.',
+            auth_title: 'Iniciar SesiÃ³n',
             ph_username: 'Tu Nombre de Usuario',
-            ph_password: 'Tu Contraseña Secreta',
-            login_btn: '🚀 Comenzar Aventura',
-            auth_footer: '¡Crea una cuenta o inicia sesión!',
+            ph_password: 'Tu ContraseÃ±a Secreta',
+            login_btn: 'ðŸš€ Comenzar Aventura',
+            auth_footer: 'Â¡Crea una cuenta o inicia sesiÃ³n!',
             choose_style: 'Elige tu estilo de juego',
-            start_journey: 'Comienza tu aventura creando algo increíble',
+            start_journey: 'Comienza tu aventura creando algo increÃ­ble',
             rpg_title: 'RPG 2D',
             rpg_desc: 'Crea aventuras top-down con mapas y misiones.',
             platform_title: 'Plataforma',
             platform_desc: 'Corre y salta en niveles estilo Mario.',
-            blank_title: 'Proyecto Vacío',
-            blank_desc: 'Empieza desde cero con tu imaginación.',
+            blank_title: 'Proyecto VacÃ­o',
+            blank_desc: 'Empieza desde cero con tu imaginaciÃ³n.',
             my_projects: 'Mis Proyectos',
             community: 'Comunidad',
             new_game: 'Nuevo Juego',
-            save_btn: '💾 Guardar',
-            publish_btn: '🌍 Publicar',
-            run_btn: '▶ Ejecutar',
-            stop_btn: '⏹ Parar',
-            reset_btn: '⏮ Reset',
+            save_btn: 'ðŸ’¾ Guardar',
+            publish_btn: 'ðŸŒ Publicar',
+            run_btn: 'â–¶ Ejecutar',
+            stop_btn: 'â¹ Parar',
+            reset_btn: 'â® Reset',
             blocks: 'Bloques',
             cat_motion: 'Movimiento',
             cat_looks: 'Apariencia',
             cat_sound: 'Sonido',
             cat_control: 'Control',
-            cat_logic: 'Lógica',
+            cat_logic: 'LÃ³gica',
             cat_variables: 'Variables',
             cat_events: 'Eventos',
-            code_area: 'Área de Código',
+            code_area: 'Ãrea de CÃ³digo',
             clear: 'Limpar',
-            drag_hint: 'Arrastra bloques aquí para empezar',
+            drag_hint: 'Arrastra bloques aquÃ­ para empezar',
             stage: 'Escenario',
-            character_btn: '🎨 Personaje',
-            bg_btn: '🖼️ Fondo',
-            level_btn: '🧱 Nivel',
-            direction: 'Dirección',
+            character_btn: 'ðŸŽ¨ Personaje',
+            bg_btn: 'ðŸ–¼ï¸ Fondo',
+            level_btn: 'ðŸ§± Nivel',
+            direction: 'DirecciÃ³n',
             // Console
             console_title: 'Consola',
             clear_console: 'Limpiar Consola',
             console_ready: 'Listo para ejecutar.',
             // Sprite Editor
             sprite_editor_title: 'Editor de Personaje',
-            import_image: '📂 Importar Imagen',
+            import_image: 'ðŸ“‚ Importar Imagen',
             save: 'Guardar',
             eraser: 'Borrador',
             // Level Editor
             level_editor_title: 'Editor de Nivel',
-            level_hint: 'Haz clic en la cuadrícula para añadir/quitar paredes.',
+            level_hint: 'Haz clic en la cuadrÃ­cula para aÃ±adir/quitar paredes.',
             clear_all: 'Limpiar Todo',
             save_level: 'Guardar Nivel',
             brush_label: 'Pincel:',
-            brush_obstacle: '🧱 Obstáculo',
-            brush_goal: '🏁 Meta',
-            brush_enemy: '👾 Enemigo',
-            edit_enemy: '🎨 Editar Enemigo',
+            brush_obstacle: 'ðŸ§± ObstÃ¡culo',
+            brush_goal: 'ðŸ Meta',
+            brush_enemy: 'ðŸ‘¾ Enemigo',
+            edit_enemy: 'ðŸŽ¨ Editar Enemigo',
             // Enemy Editor
-            enemy_editor_title: 'Editor de Enemigo 👾',
-            enemy_import: '📂 Importar Imagen',
-            enemy_clear: '🗑️ Limpiar',
+            enemy_editor_title: 'Editor de Enemigo ðŸ‘¾',
+            enemy_import: 'ðŸ“‚ Importar Imagen',
+            enemy_clear: 'ðŸ—‘ï¸ Limpiar',
             enemy_save: 'Guardar',
             // Background
             change_bg: 'Cambiar Fondo',
-            solid_colors: 'Colores Sólidos',
+            solid_colors: 'Colores SÃ³lidos',
             themes: 'Temas',
-            theme_platform: '🏞️ Plataforma',
-            theme_space: '✨ Espacio',
+            theme_platform: 'ðŸžï¸ Plataforma',
+            theme_space: 'âœ¨ Espacio',
             upload: 'Subir',
-            load_image: '📂 Cargar Imagen',
+            load_image: 'ðŸ“‚ Cargar Imagen',
             // Community & Dashboard
-            no_community_games: '¡No hay juegos publicados aún. ¡Sé el primero!',
-            no_my_games: 'Aún no tienes juegos guardados 🕵️‍♂️',
-            create_first_game: '¡Crea un Nuevo Juego para empezar!',
-            nothing_here: '¡Nada por aquí... aún!',
-            error_loading: 'Al parecer no hay juegos para mostrar o ocurrió un error al cargarlos.',
-            use_new_card: '¡Usa la tarjeta <b>+ Nuevo Juego</b> para crear el tuyo!',
-            be_first_publish: '¡Sé el primero en publicar un juego en la comunidad!',
-            laptop_warning: '💻 Los juegos de la comunidad solo se pueden probar/jugar en la computadora.',
+            no_community_games: 'Â¡No hay juegos publicados aÃºn. Â¡SÃ© el primero!',
+            no_my_games: 'AÃºn no tienes juegos guardados ðŸ•µï¸â€â™‚ï¸',
+            create_first_game: 'Â¡Crea un Nuevo Juego para empezar!',
+            nothing_here: 'Â¡Nada por aquÃ­... aÃºn!',
+            error_loading: 'Al parecer no hay juegos para mostrar o ocurriÃ³ un error al cargarlos.',
+            use_new_card: 'Â¡Usa la tarjeta <b>+ Nuevo Juego</b> para crear el tuyo!',
+            be_first_publish: 'Â¡SÃ© el primero en publicar un juego en la comunidad!',
+            laptop_warning: 'ðŸ’» Los juegos de la comunidad solo se pueden probar/jugar en la computadora.',
             note_label: 'NOTA',
             by_author: 'Por:',
-            anon_author: 'Anónimo',
-            no_title: 'Sin Título',
+            anon_author: 'AnÃ³nimo',
+            no_title: 'Sin TÃ­tulo',
             // Alerts
-            err_user_not_found: "❌ Usuario no encontrado.",
-            err_wrong_pass: "🔒 ¡Contraseña incorrecta!",
-            err_fill_auth: "⚠️ ¡Completa nombre y contraseña!",
-            err_save: "❌ ¡Error al guardar: Almacenamiento lleno o bloqueado!",
-            err_storage_full: "❌ ¡Error: Espacio de almacenamiento lleno! No se pudo publicar.\nIntenta eliminar algunos proyectos antiguos.",
-            demo_created: "🎮 ¡Demo 'Mario Control' creado con éxito!\nUsa las Flechas y el Espacio para jugar.",
+            err_user_not_found: "âŒ Usuario no encontrado.",
+            err_wrong_pass: "ðŸ”’ Â¡ContraseÃ±a incorrecta!",
+            err_fill_auth: "âš ï¸ Â¡Completa nombre y contraseÃ±a!",
+            err_save: "âŒ Â¡Error al guardar: Almacenamiento lleno o bloqueado!",
+            err_storage_full: "âŒ Â¡Error: Espacio de almacenamiento lleno! No se pudo publicar.\nIntenta eliminar algunos proyectos antiguos.",
+            demo_created: "ðŸŽ® Â¡Demo 'Mario Control' creado con Ã©xito!\nUsa las Flechas y el Espacio para jugar.",
             // Level Tooltips
             clear_console_tooltip: 'Limpiar Consola',
-            trash_blocks: 'Suelta aquí para borrar',
+            trash_blocks: 'Suelta aquÃ­ para borrar',
             // Mascot & Tutorial
             tutorial_label: 'Tutorial',
             mascot_skip: 'Saltar',
-            mascot_next: 'Siguiente ➜',
-            mascot_start: '¡Empezar! 🚀',
-            tut_step_1: '<span class="emoji-big">👋</span>¡Hola! Soy <strong>Bit</strong>. ¿Aprendemos a crear tu primer juego en 1 minuto?',
-            tut_step_2: '¡Haz clic aquí en el robot 🤖 para comenzar tu aventura de creador!',
-            tut_step_3: '<span class="emoji-big">🧩</span>Bienvenido al Editor. Aquí, estos <strong>Bloques</strong> coloridos son tus "órdenes" para el juego.',
-            tut_step_4: '<div class="tutorial-block-card"><div class="block-preview" style="background:#FFBF00">🏁</div><div class="block-info"><span class="block-name">Eventos</span><span class="block-desc">Los bloques amarillos deciden CUÁNDO sucede algo.</span></div></div>¡Nada comienza sin un disparador!',
-            tut_step_5: 'Primer desafío: Haz clic en la pestaña amarilla y busca el bloque <strong>"Cuando tecla flecha derecha presionada"</strong>.',
-            tut_step_6: '<div class="tutorial-block-card"><div class="block-preview" style="background:#4C97FF">👟</div><div class="block-info"><span class="block-name">Movimiento</span><span class="block-desc">¡Los bloques azules sirven para dar vida y movimiento!</span></div></div>Vamos a hacer que el héroe camine.',
-            tut_step_7: 'Segundo desafío: Haz clic en la pestaña azul e arrastra el bloque <strong>"Mover 10 pasos"</strong> al lado.',
-            tut_step_8: '¡Ahora encaja los dos! Acabas de programar: <em>"Cuando presiono la tecla -> El héroe se mueve"</em>. ¡Increíble!',
-            tut_step_9: '🎬 Este es el <strong>Escenario</strong>. Aquí es donde ves a tu héroe y tu mundo cobrar vida.',
-            tut_step_10: '¡Hora de la prueba! Haz clic en <strong>▶ Ejecutar</strong> para encender el motor y luego pulsa la tecla que elegiste. ¡Está vivo!',
-            tut_step_11: '🎨 ¿Quieres cambiar el héroe, el fondo o dibujar obstáculos? Usa estos botones mágicos.',
-            tut_step_12: '💾 ¡No olvides <strong>Guardar</strong> o <strong>Publicar</strong> para que otros jueguen tu nivel!',
-            tut_step_13: '<span class="emoji-big">🚀</span>¡Felicidades! Ya eres un programador. Ahora el límite es tu imaginación. ¡Diviértete!'
+            mascot_next: 'Siguiente âžœ',
+            mascot_start: 'Â¡Empezar! ðŸš€',
+            tut_step_1: '<span class="emoji-big">ðŸ‘‹</span>Â¡Hola! Soy <strong>Bit</strong>. Â¿Aprendemos a crear tu primer juego en 1 minuto?',
+            tut_step_2: 'Â¡Haz clic aquÃ­ en el robot ðŸ¤– para comenzar tu aventura de creador!',
+            tut_step_3: '<span class="emoji-big">ðŸ§©</span>Bienvenido al Editor. AquÃ­, estos <strong>Bloques</strong> coloridos son tus "Ã³rdenes" para el juego.',
+            tut_step_4: '<div class="tutorial-block-card"><div class="block-preview" style="background:#FFBF00">ðŸ</div><div class="block-info"><span class="block-name">Eventos</span><span class="block-desc">Los bloques amarillos deciden CUÃNDO sucede algo.</span></div></div>Â¡Nada comienza sin un disparador!',
+            tut_step_5: 'Primer desafÃ­o: Haz clic en la pestaÃ±a amarilla y busca el bloque <strong>"Cuando tecla flecha derecha presionada"</strong>.',
+            tut_step_6: '<div class="tutorial-block-card"><div class="block-preview" style="background:#4C97FF">ðŸ‘Ÿ</div><div class="block-info"><span class="block-name">Movimiento</span><span class="block-desc">Â¡Los bloques azules sirven para dar vida y movimiento!</span></div></div>Vamos a hacer que el hÃ©roe camine.',
+            tut_step_7: 'Segundo desafÃ­o: Haz clic en la pestaÃ±a azul e arrastra el bloque <strong>"Mover 10 pasos"</strong> al lado.',
+            tut_step_8: 'Â¡Ahora encaja los dos! Acabas de programar: <em>"Cuando presiono la tecla -> El hÃ©roe se mueve"</em>. Â¡IncreÃ­ble!',
+            tut_step_9: 'ðŸŽ¬ Este es el <strong>Escenario</strong>. AquÃ­ es donde ves a tu hÃ©roe y tu mundo cobrar vida.',
+            tut_step_10: 'Â¡Hora de la prueba! Haz clic en <strong>â–¶ Ejecutar</strong> para encender el motor y luego pulsa la tecla que elegiste. Â¡EstÃ¡ vivo!',
+            tut_step_11: 'ðŸŽ¨ Â¿Quieres cambiar el hÃ©roe, el fondo o dibujar obstÃ¡culos? Usa estos botones mÃ¡gicos.',
+            tut_step_12: 'ðŸ’¾ Â¡No olvides <strong>Guardar</strong> o <strong>Publicar</strong> para que otros jueguen tu nivel!',
+            tut_step_13: '<span class="emoji-big">ðŸš€</span>Â¡Felicidades! Ya eres un programador. Ahora el lÃ­mite es tu imaginaciÃ³n. Â¡DiviÃ©rtete!'
         }
     };
 
     // Block label translations
     const BLOCK_TRANSLATIONS = {
         pt: {
-            event_flag: 'Quando 🏳️ for clicado',
+            event_flag: 'Quando ðŸ³ï¸ for clicado',
             event_key: 'Quando a tecla %s for pressionada',
-            event_key_default: 'espaço',
-            event_touch_goal: 'Quando tocar na meta 🏁',
-            event_death: 'Quando morrer 💀',
+            event_key_default: 'espaÃ§o',
+            event_touch_goal: 'Quando tocar na meta ðŸ',
+            event_death: 'Quando morrer ðŸ’€',
             motion_move: 'Mova %n passos',
-            motion_move_back: 'Ande para trás %n passos',
+            motion_move_back: 'Ande para trÃ¡s %n passos',
             motion_jump: 'Pule (Jump)',
             motion_change_x: 'Mude x por %n',
-            motion_set_x: 'Vá para x: %n',
+            motion_set_x: 'VÃ¡ para x: %n',
             motion_change_y: 'Mude y por %n',
-            motion_set_y: 'Vá para y: %n',
-            motion_turn_right: 'Gire ↻ %n graus',
-            motion_turn_left: 'Gire ↺ %n graus',
-            motion_goto_xy: 'Vá para x: %n y: %n',
+            motion_set_y: 'VÃ¡ para y: %n',
+            motion_turn_right: 'Gire â†» %n graus',
+            motion_turn_left: 'Gire â†º %n graus',
+            motion_goto_xy: 'VÃ¡ para x: %n y: %n',
             motion_glide: 'Deslize %n segs p/ x: %n y: %n',
             motion_bounce_on_edge: 'Se tocar na borda, volte',
             looks_say: 'Diga %s por %n segs',
-            looks_say_default: 'Olá!',
+            looks_say_default: 'OlÃ¡!',
             looks_show: 'Mostre',
             looks_hide: 'Esconda',
             looks_change_color: 'Mude cor em %n',
@@ -384,18 +384,18 @@ document.addEventListener('DOMContentLoaded', () => {
             control_wait: 'Espere %n segs',
             control_repeat: 'Repita %n vezes',
             control_forever: 'Sempre',
-            logic_if: 'Se %s então',
+            logic_if: 'Se %s entÃ£o',
             logic_compare: '%s = %s',
             variable_set: 'Defina %s como %n',
             variable_change: 'Mude %s por %n',
             event_clicked: 'Quando este personagem for clicado'
         },
         en: {
-            event_flag: 'When 🏳️ clicked',
+            event_flag: 'When ðŸ³ï¸ clicked',
             event_key: 'When %s key pressed',
             event_key_default: 'space',
-            event_touch_goal: 'When touching goal 🏁',
-            event_death: 'When dead 💀',
+            event_touch_goal: 'When touching goal ðŸ',
+            event_death: 'When dead ðŸ’€',
             motion_move: 'Move %n steps',
             motion_move_back: 'Move back %n steps',
             motion_jump: 'Jump',
@@ -403,8 +403,8 @@ document.addEventListener('DOMContentLoaded', () => {
             motion_set_x: 'Set x to %n',
             motion_change_y: 'Change y by %n',
             motion_set_y: 'Set y to %n',
-            motion_turn_right: 'Turn ↻ %n degrees',
-            motion_turn_left: 'Turn ↺ %n degrees',
+            motion_turn_right: 'Turn â†» %n degrees',
+            motion_turn_left: 'Turn â†º %n degrees',
             motion_goto_xy: 'Go to x: %n y: %n',
             motion_glide: 'Glide %n secs to x: %n y: %n',
             motion_bounce_on_edge: 'If on edge, bounce',
@@ -425,11 +425,11 @@ document.addEventListener('DOMContentLoaded', () => {
             event_clicked: 'When this character clicked'
         },
         es: {
-            event_flag: 'Cuando 🏳️ sea pulsado',
+            event_flag: 'Cuando ðŸ³ï¸ sea pulsado',
             event_key: 'Cuando tecla %s sea pulsada',
             event_key_default: 'espacio',
-            event_touch_goal: 'Cuando toque la meta 🏁',
-            event_death: 'Cuando muera 💀',
+            event_touch_goal: 'Cuando toque la meta ðŸ',
+            event_death: 'Cuando muera ðŸ’€',
             motion_move: 'Mover %n pasos',
             motion_move_back: 'Retroceder %n pasos',
             motion_jump: 'Saltar',
@@ -437,17 +437,17 @@ document.addEventListener('DOMContentLoaded', () => {
             motion_set_x: 'Fijar x a %n',
             motion_change_y: 'Cambiar y en %n',
             motion_set_y: 'Fijar y a %n',
-            motion_turn_right: 'Girar ↻ %n grados',
-            motion_turn_left: 'Girar ↺ %n grados',
+            motion_turn_right: 'Girar â†» %n grados',
+            motion_turn_left: 'Girar â†º %n grados',
             motion_goto_xy: 'Ir a x: %n y: %n',
             motion_glide: 'Deslizar %n segs a x: %n y: %n',
             motion_bounce_on_edge: 'Si toca el borde, rebotar',
             looks_say: 'Decir %s por %n segs',
-            looks_say_default: '¡Hola!',
+            looks_say_default: 'Â¡Hola!',
             looks_show: 'Mostrar',
             looks_hide: 'Esconder',
             looks_change_color: 'Cambiar color en %n',
-            looks_set_size: 'Fijar tamaño a %n %',
+            looks_set_size: 'Fijar tamaÃ±o a %n %',
             sound_play_beep: 'Tocar sonido Pop',
             control_wait: 'Esperar %n segs',
             control_repeat: 'Repetir %n veces',
@@ -676,7 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
         register(username, password) {
             const normalized = username.trim().toLowerCase();
             if (this.users.find(u => u.username.toLowerCase() === normalized)) {
-                return { success: false, message: "⚠️ Este nome já está em uso!" };
+                return { success: false, message: "âš ï¸ Este nome jÃ¡ estÃ¡ em uso!" };
             }
 
             const newUser = { username: normalized, password };
@@ -692,11 +692,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const t = TRANSLATIONS[currentLang];
 
             if (!user) {
-                return { success: false, message: t.err_user_not_found || "❌ Usuário não encontrado." };
+                return { success: false, message: t.err_user_not_found || "âŒ UsuÃ¡rio nÃ£o encontrado." };
             }
 
             if (user.password !== password) {
-                return { success: false, message: t.err_wrong_pass || "🔒 Senha incorreta!" };
+                return { success: false, message: t.err_wrong_pass || "ðŸ”’ Senha incorreta!" };
             }
 
             this.currentUser = normalized;
@@ -725,14 +725,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     class ProjectManager {
         constructor() {
-            // Projects structure: { id, title, author, type, thumb, data }
-            try {
-                this.communityProjects = JSON.parse(localStorage.getItem('infinity_community') || '[]');
-                if (!Array.isArray(this.communityProjects)) this.communityProjects = [];
-            } catch (e) {
-                console.error("Community Data Corrupt:", e);
-                this.communityProjects = [];
-            }
+            // Community projects will now be fetched from Firebase
+            this.communityProjects = [];
 
             try {
                 this.myProjects = JSON.parse(localStorage.getItem('infinity_my_projects') || '[]');
@@ -756,7 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (e) {
                 const t = TRANSLATIONS[currentLang];
                 console.error("Storage Save Error:", e);
-                alert(t.err_save || "❌ Erro ao salvar: Armazenamento cheio ou bloqueado!");
+                alert(t.err_save || "âŒ Erro ao salvar: Armazenamento cheio ou bloqueado!");
                 return false;
             }
         }
@@ -769,32 +763,56 @@ document.addEventListener('DOMContentLoaded', () => {
             return [];
         }
 
-        publish(project) {
+        async publish(project) {
             try {
-                this.communityProjects.unshift(project);
-                localStorage.setItem('infinity_community', JSON.stringify(this.communityProjects));
+                if (!window.FB_DB) {
+                    throw new Error("ConexÃ£o com Firebase nÃ£o inicializada.");
+                }
+
+                const { ref, push, set } = window.FB_OPS;
+                const communityRef = ref(window.FB_DB, 'community_projects');
+                const newProjectRef = push(communityRef);
+
+                // Add timestamp for sorting
+                project.publishedAt = Date.now();
+
+                await set(newProjectRef, project);
+                console.log("Projeto publicado no Firebase com ID:", newProjectRef.key);
                 return true;
             } catch (e) {
                 const t = TRANSLATIONS[currentLang];
-                console.error("Storage Limit Reached:", e);
-                alert(t.err_storage_full || "❌ Erro: Espaço de armazenamento cheio! Não foi possível publicar.\nTente excluir alguns projetos antigos.");
-                this.communityProjects.shift(); // Rollback
+                console.error("Firebase Publish Error:", e);
+                alert("Erro ao publicar: " + e.message);
                 return false;
             }
         }
 
         delete(projectId, isCommunity = false) {
             if (isCommunity) {
-                this.communityProjects = this.communityProjects.filter(p => p.id !== projectId);
-                localStorage.setItem('infinity_community', JSON.stringify(this.communityProjects));
+                console.warn("Community deletion not implemented for Firebase yet.");
             } else {
                 this.myProjects = this.myProjects.filter(p => p.id !== projectId);
                 localStorage.setItem('infinity_my_projects', JSON.stringify(this.myProjects));
             }
         }
 
-        getCommunityProjects() {
-            return this.communityProjects;
+        async getCommunityProjects() {
+            try {
+                if (!window.FB_DB) return [];
+
+                const { ref, get, child } = window.FB_OPS;
+                const dbRef = ref(window.FB_DB);
+                const snapshot = await get(child(dbRef, 'community_projects'));
+
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    return Object.values(data).sort((a, b) => (b.publishedAt || 0) - (a.publishedAt || 0));
+                }
+                return [];
+            } catch (e) {
+                console.error("Firebase Fetch Error:", e);
+                return [];
+            }
         }
     }
 
@@ -810,7 +828,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const mySize = (localStorage.getItem('infinity_my_projects') || '').length;
             const commSize = (localStorage.getItem('infinity_community') || '').length;
 
-            const msg = `🛠️ DIAGNÓSTICO:\n` +
+            const msg = `ðŸ› ï¸ DIAGNÃ“STICO:\n` +
                 `- Projetos Locais: ${projectMgr.myProjects.length} (${(mySize / 1024).toFixed(2)} KB)\n` +
                 `- Projetos Comunidade: ${projectMgr.communityProjects.length} (${(commSize / 1024).toFixed(2)} KB)\n` +
                 `- Total Storage: ${((mySize + commSize) / 1024).toFixed(2)} KB\n` +
@@ -873,7 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Stack 3: Jump (Space) - Simple up/down
         demoWorkspace += `<div style="position:absolute; top:50px; left:350px;">`;
-        demoWorkspace += b('event_key', 'events', 'Quando a tecla %s for pressionada', { key: 'espaço' });
+        demoWorkspace += b('event_key', 'events', 'Quando a tecla %s for pressionada', { key: 'espaÃ§o' });
         demoWorkspace += b('motion_change_y', 'motion', 'Mude y por %n', { dy: '50' });
         demoWorkspace += b('control_wait', 'control', 'Espere %n segs', { seconds: '0.3' });
         demoWorkspace += b('motion_change_y', 'motion', 'Mude y por %n', { dy: '-50' });
@@ -897,7 +915,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('infinity_community', JSON.stringify(samples));
         projectMgr.communityProjects = samples;
         const t = TRANSLATIONS[currentLang];
-        alert(t.demo_created || "🎮 Demo 'Mario Control' criado com sucesso!\nUse as Setas e Espaço para jogar.");
+        alert(t.demo_created || "ðŸŽ® Demo 'Mario Control' criado com sucesso!\nUse as Setas e EspaÃ§o para jogar.");
 
         // Force refresh
         const commTab = document.querySelector('[data-tab="community"]');
@@ -919,7 +937,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (userMgr.isLoggedIn()) {
         userDisplay.textContent = userMgr.currentUser;
         switchView('dashboard');
-        renderDashboard('my-projects');
+        await renderDashboard('my-projects');
     }
 
     // Logout Handler
@@ -935,14 +953,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    loginBtn.addEventListener('click', () => {
+    loginBtn.addEventListener('click', async () => {
         const username = usernameInput.value.trim();
         const password = passwordInput ? passwordInput.value.trim() : "";
         const t = TRANSLATIONS[currentLang];
 
         if (!username || !password) {
             if (authMessage) {
-                authMessage.textContent = t.err_fill_auth || "⚠️ Preencha nome e senha!";
+                authMessage.textContent = t.err_fill_auth || "âš ï¸ Preencha nome e senha!";
                 authMessage.style.color = '#f59e0b';
             }
             return;
@@ -957,22 +975,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 userDisplay.textContent = userMgr.currentUser;
                 UiSounds.start();
                 switchView('dashboard');
-                renderDashboard('my-projects');
-            } else {
-                if (authMessage) {
-                    authMessage.textContent = result.message;
-                    authMessage.style.color = '#ef4444';
-                }
-                UiSounds.trash();
-            }
-        } else {
-            // Attempt Register
-            const result = userMgr.register(username, password);
-            if (result.success) {
-                userDisplay.textContent = userMgr.currentUser;
-                UiSounds.start();
-                switchView('dashboard');
-                renderDashboard('my-projects');
+                await renderDashboard('my-projects');
             } else {
                 if (authMessage) {
                     authMessage.textContent = result.message;
@@ -993,12 +996,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Dashboard Tabs
     tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
+        tab.addEventListener('click', async () => {
             console.log("Tab clicked:", tab.dataset.tab);
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             try {
-                renderDashboard(tab.dataset.tab);
+                await renderDashboard(tab.dataset.tab);
             } catch (e) {
                 alert("Erro ao trocar de aba: " + e.message);
                 console.error(e);
@@ -1006,11 +1009,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    function renderDashboard(tabName) {
+    async function renderDashboard(tabName) {
         console.log("Rendering Dashboard:", tabName);
 
         if (!projectsGrid) {
-            console.error("Erro Interno: Elemento '.projects-grid' não foi encontrado no HTML!");
+            console.error("Erro Interno: Elemento '.projects-grid' nÃ£o foi encontrado no HTML!");
             return;
         }
 
@@ -1032,12 +1035,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 warning.className = 'community-warning-premium';
                 warning.innerHTML = `
                     <div class="warning-badge" data-i18n="note_label">${t.note_label}</div>
-                    <div class="warning-icon">💻</div>
+                    <div class="warning-icon">ðŸ’»</div>
                     <div class="warning-text" data-i18n="laptop_warning">${t.laptop_warning}</div>
                 `;
                 projectsGrid.appendChild(warning);
 
-                let commProjects = projectMgr.getCommunityProjects();
+                let commProjects = await projectMgr.getCommunityProjects();
 
                 if (!Array.isArray(commProjects)) commProjects = [];
                 const validProjects = commProjects.filter(p => p && p.id && p.title);
@@ -1057,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     msg.className = 'empty-state-msg';
                     msg.style.cssText = 'width: 100%; text-align: center; grid-column: 1 / -1; padding: 40px; color: #cbd5e1; font-size: 1.2rem; display: flex; flex-direction: column; align-items: center; gap: 10px;';
                     msg.innerHTML = `
-                        <div style="font-size: 3rem;">🕵️</div>
+                        <div style="font-size: 3rem;">ðŸ•µï¸</div>
                         <h3>${t.nothing_here}</h3>
                         <p>${t.error_loading}</p>
                         ${tabName === 'my-projects' ? `<p>${t.use_new_card}</p>` : `<p>${t.be_first_publish}</p>`}
@@ -1090,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (e) {
             console.error("Dashboard Render Error:", e);
-            alert("❌ Erro ao carregar dashboard: " + e.message);
+            alert("âŒ Erro ao carregar dashboard: " + e.message);
         }
     }
 
@@ -1105,12 +1108,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const t = TRANSLATIONS[currentLang];
         div.innerHTML = `
-            <div class="card-icon">🎮</div>
+            <div class="card-icon">ðŸŽ®</div>
             <h3>${data.title || t.no_title}</h3>
-            <p>${t.by_author} ${data.author || t.anon_author} ${data.author === 'admin' ? '🛡️' : ''}</p>
+            <p>${t.by_author} ${data.author || t.anon_author} ${data.author === 'admin' ? 'ðŸ›¡ï¸' : ''}</p>
             <div class="card-footer">
-                <button class="card-btn play-btn">▶</button>
-                ${canDelete ? '<button class="card-btn delete-btn">🗑️</button>' : ''}
+                <button class="card-btn play-btn">â–¶</button>
+                ${canDelete ? '<button class="card-btn delete-btn">ðŸ—‘ï¸</button>' : ''}
             </div>
         `;
 
@@ -1123,7 +1126,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     playProject(data);
                 } else {
                     console.error("playProject function is missing!");
-                    alert("Erro interno: Função de jogar não encontrada.");
+                    alert("Erro interno: FunÃ§Ã£o de jogar nÃ£o encontrada.");
                 }
             });
         }
@@ -1141,13 +1144,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (canDelete) {
             const delBtn = div.querySelector('.delete-btn');
             if (delBtn) {
-                delBtn.addEventListener('click', (e) => {
+                delBtn.addEventListener('click', async (e) => {
                     e.stopPropagation();
                     const msg = isOwner ? `Excluir "${data.title}"?` : `[ADMIN] Excluir jogo de ${data.author}?`;
                     if (confirm(msg)) {
                         projectMgr.delete(data.id, isCommunity);
                         UiSounds.trash();
-                        renderDashboard(isCommunity ? 'community' : 'my-projects');
+                        await renderDashboard(isCommunity ? 'community' : 'my-projects');
                     }
                 });
             }
@@ -1156,17 +1159,79 @@ document.addEventListener('DOMContentLoaded', () => {
         return div;
     }
 
+    // --- Editor Controls (Save/Publish) ---
+    const publishBtn = document.getElementById('publish-btn');
+    if (publishBtn) {
+        publishBtn.addEventListener('click', async () => {
+            const t = TRANSLATIONS[currentLang];
+            if (!userMgr.isLoggedIn()) {
+                alert("Para publicar, precisas de entrar!");
+                return;
+            }
+
+            const project = {
+                id: currentProjectID || Date.now().toString(),
+                title: document.getElementById('project-title-input')?.value || t.no_title,
+                author: userMgr.currentUser,
+                date: new Date().toLocaleDateString(),
+                data: {
+                    workspace: workspaceEl.innerHTML,
+                    sprite: stage.sprite,
+                    background: stage.background,
+                    levelGrid: stage.levelGrid
+                }
+            };
+
+            const success = await projectMgr.publish(project);
+            if (success) {
+                alert("ðŸš€ " + (t.published_msg || "Projeto publicado com sucesso na Comunidade!"));
+                UiSounds.success();
+            }
+        });
+    }
+
+    const saveProjectBtn = document.getElementById('save-project-btn');
+    if (saveProjectBtn) {
+        saveProjectBtn.addEventListener('click', () => {
+            const t = TRANSLATIONS[currentLang];
+            if (!userMgr.isLoggedIn()) {
+                alert("Para guardar, precisas de entrar!");
+                return;
+            }
+
+            const project = {
+                id: currentProjectID || Date.now().toString(),
+                title: document.getElementById('project-title-input')?.value || t.no_title,
+                author: userMgr.currentUser,
+                date: new Date().toLocaleDateString(),
+                data: {
+                    workspace: workspaceEl.innerHTML,
+                    sprite: stage.sprite,
+                    background: stage.background,
+                    levelGrid: stage.levelGrid
+                }
+            };
+
+            const success = projectMgr.saveLocal(project);
+            if (success) {
+                currentProjectID = project.id;
+                alert("ðŸ’¾ " + (t.saved_msg || "Projeto guardado localmente!"));
+                UiSounds.success();
+            }
+        });
+    }
+
     btnNewProject.addEventListener('click', () => {
         if (!userMgr.isLoggedIn()) {
             const t = TRANSLATIONS[currentLang];
-            alert(t.err_fill_auth || "⚠️ Por favor, faça login primeiro!");
+            alert(t.err_fill_auth || "âš ï¸ Por favor, faÃ§a login primeiro!");
             switchView('landing');
             return;
         }
 
         // RESET STATE for New Project
         currentProjectID = null;
-        workspaceEl.innerHTML = '<div class="workspace-grid"></div><div class="start-hint">Arraste blocos para cá para começar</div><div id="drag-container"></div>';
+        workspaceEl.innerHTML = '<div class="workspace-grid"></div><div class="start-hint">Arraste blocos para cÃ¡ para comeÃ§ar</div><div id="drag-container"></div>';
         stage.reset();
         stage.background = { type: 'color', color: '#ffffff' }; // Default BG
 
@@ -1288,14 +1353,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     document.getElementById('stop-btn').addEventListener('click', () => interpreter.stop());
-    document.getElementById('back-to-dash-btn').addEventListener('click', () => {
+    document.getElementById('back-to-dash-btn').addEventListener('click', async () => {
         interpreter.stop();
         // Move canvas back to editor
         if (editorStageMount && stageCanvas && stageCanvas.parentNode !== editorStageMount) {
             editorStageMount.appendChild(stageCanvas);
         }
         switchView('dashboard');
-        renderDashboard('my-projects');
+        await renderDashboard('my-projects');
     });
 
     // --- GAMEPAD LOGIC ---
@@ -1345,7 +1410,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stage.reset();
     });
     document.getElementById('clear-workspace').addEventListener('click', () => {
-        workspaceEl.innerHTML = '<div class="workspace-grid"></div><div class="start-hint">Arraste blocos para cá para começar</div><div id="drag-container"></div>';
+        workspaceEl.innerHTML = '<div class="workspace-grid"></div><div class="start-hint">Arraste blocos para cÃ¡ para comeÃ§ar</div><div id="drag-container"></div>';
     });
 
     // --- Drag & Drop Logic ---
@@ -1577,7 +1642,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // DOM Structure: Move movingBlock to be immediately after targetBlock
         workspaceEl.insertBefore(movingBlock, targetBlock.nextElementSibling);
 
-        console.log(`🔗 Snap confirmed: ${movingBlock.dataset.type} -> ${targetBlock.dataset.type}`);
+        console.log(`ðŸ”— Snap confirmed: ${movingBlock.dataset.type} -> ${targetBlock.dataset.type}`);
     }
 
     // --- Game Selection & Initialization ---
@@ -1686,9 +1751,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const LEVEL_ROWS = 15;
 
     const BRUSH_COLORS = {
-        obstacle: { bg: '#d97706', border: '#d97706', text: '#fff', label: '🧱 Obstáculo' },
-        goal: { bg: '#fbbf24', border: '#fbbf24', text: '#000', label: '🏁 Meta' },
-        enemy: { bg: '#dc2626', border: '#dc2626', text: '#fff', label: '👾 Inimigo' }
+        obstacle: { bg: '#d97706', border: '#d97706', text: '#fff', label: 'ðŸ§± ObstÃ¡culo' },
+        goal: { bg: '#fbbf24', border: '#fbbf24', text: '#000', label: 'ðŸ Meta' },
+        enemy: { bg: '#dc2626', border: '#dc2626', text: '#fff', label: 'ðŸ‘¾ Inimigo' }
     };
 
     function initLevelGrid() {
@@ -1708,7 +1773,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (c === 3 && r === Math.floor(LEVEL_ROWS / 2)) {
                     cell.style.position = 'relative';
                     const marker = document.createElement('span');
-                    marker.textContent = '🏠';
+                    marker.textContent = 'ðŸ ';
                     marker.style.cssText = 'position:absolute;top:0;left:0;font-size:16px;pointer-events:none;opacity:0.7;z-index:1;';
                     cell.appendChild(marker);
                 }
@@ -1858,7 +1923,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Clear Level
     if (clearLevelBtn) {
         clearLevelBtn.addEventListener('click', () => {
-            if (confirm('Limpar todo o nível?')) {
+            if (confirm('Limpar todo o nÃ­vel?')) {
                 const cells = levelGridEl.querySelectorAll('.level-cell');
                 cells.forEach(c => {
                     c.classList.remove('active', 'obstacle', 'goal', 'enemy');
@@ -1882,7 +1947,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="editor-modal glass-panel" style="max-width:420px;">
                 <div class="modal-header">
                     <h2>${t.enemy_editor_title}</h2>
-                    <button id="close-enemy-editor" class="icon-btn">✕</button>
+                    <button id="close-enemy-editor" class="icon-btn">âœ•</button>
                 </div>
                 <div class="editor-body">
                     <div style="display:flex; gap:10px; margin-bottom:10px;">
@@ -1900,7 +1965,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="color-swatch" style="--bg: #3b82f6" data-ecolor="#3b82f6"></div>
                             <div class="color-swatch" style="--bg: #a855f7" data-ecolor="#a855f7"></div>
                             <div class="color-swatch" style="--bg: #f59e0b" data-ecolor="#f59e0b"></div>
-                            <div class="color-swatch eraser" data-ecolor="transparent" title="${t.eraser}">⬜</div>
+                            <div class="color-swatch eraser" data-ecolor="transparent" title="${t.eraser}">â¬œ</div>
                         </div>
                         <input type="color" id="enemy-custom-color" value="#dc2626">
                         <button id="save-enemy-btn" class="control-btn run">${t.enemy_save}</button>
@@ -2136,7 +2201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return {
             id: currentProjectID || Date.now(),
             title: title,
-            author: userMgr.currentUser || "Anônimo",
+            author: userMgr.currentUser || "AnÃ´nimo",
             date: new Date().toLocaleDateString(),
             data: {
                 workspace: workspaceEl.innerHTML,
@@ -2266,14 +2331,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     document.getElementById('player-stop-btn').addEventListener('click', () => interpreter.stop());
 
-    document.getElementById('player-back-btn').addEventListener('click', () => {
+    document.getElementById('player-back-btn').addEventListener('click', async () => {
         interpreter.stop();
         // Move Canvas back to Editor
         if (editorStageMount && stageCanvas) {
             editorStageMount.appendChild(stageCanvas);
         }
         switchView('dashboard');
-        renderDashboard('community'); // Default return
+        await renderDashboard('community'); // Default return
     });
 
 
@@ -2313,72 +2378,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Back Button (Editor)
     const backBtn = document.getElementById('editor-back-btn');
     if (backBtn) {
-        backBtn.addEventListener('click', () => {
+        backBtn.addEventListener('click', async () => {
             // Ensure canvas is in editor (sanity check)
             if (editorStageMount && stageCanvas && stageCanvas.parentNode !== editorStageMount) {
                 editorStageMount.appendChild(stageCanvas);
             }
             switchView('dashboard');
-            renderDashboard('my-projects');
+            await renderDashboard('my-projects');
         });
     }
 
-    // Save Button
-    const saveBtn = document.getElementById('save-project-btn');
-    if (saveBtn) {
-        saveBtn.addEventListener('click', () => {
-            if (!userMgr.isLoggedIn()) {
-                const t = TRANSLATIONS[currentLang];
-                alert(t.err_fill_auth || "⚠️ Por favor, faça login para salvar!");
-                switchView('landing');
-                return;
-            }
+    // Save Button (Duplicate logic removed)
 
-            // Default Title logic: existing title if editing, or generic
-            const title = prompt("Nome do Projeto:", "Meu Jogo Incrível");
-            if (!title) return;
-
-            const project = serializeProject(title);
-            currentProjectID = project.id;
-
-            if (projectMgr.saveLocal(project)) {
-                UiSounds.success();
-
-                // Redirect to Dashboard -> My Projects
-                switchView('dashboard');
-
-                // Activate "My Projects" tab visually
-                tabs.forEach(t => t.classList.remove('active'));
-                const myProjTab = document.querySelector('[data-tab="my-projects"]');
-                if (myProjTab) myProjTab.classList.add('active');
-
-                renderDashboard('my-projects');
-            }
-        });
-    }
-
-    // Publish Button
-    const publishBtn = document.getElementById('publish-btn');
-    if (publishBtn) {
-        publishBtn.addEventListener('click', () => {
-            const title = prompt("Título para a Comunidade:") || "Jogo Sem Nome";
-            const newProject = serializeProject(title);
-            // Always new ID for publish to avoid overwriting local draft if we wanted separation, 
-            // but here we just publish the snapshot.
-
-            if (projectMgr.publish(newProject)) {
-                UiSounds.success();
-                alert(`Jogo "${title}" publicado na Comunidade! 🌍`);
-
-                switchView('dashboard');
-                // Force refresh community tab
-                const commTab = document.querySelector('[data-tab="community"]');
-                if (commTab) {
-                    commTab.click(); // This triggers the renderDashboard
-                }
-            }
-        });
-    }
+    // Publish Button (Removed duplicate local publish logic as it is now in Editor Controls section)
 
 
 
@@ -2446,7 +2458,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let tutorialCurrentStep = 0;
     let previousHighlight = null;
 
-    function showTutorialStep(index) {
+    async function showTutorialStep(index) {
         if (index >= TUTORIAL_STEPS.length) {
             endTutorial();
             return;
@@ -2460,7 +2472,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (step.view === 'dashboard') {
             if (views.dashboard.classList.contains('hidden')) {
                 switchView('dashboard');
-                renderDashboard('my-projects');
+                await renderDashboard('my-projects');
             }
         } else if (step.view === 'editor') {
             if (views.editor.classList.contains('hidden')) {
@@ -2560,7 +2572,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (mascotSkip) {
         mascotSkip.addEventListener('click', () => {
-            if (confirm('Tens a certeza que queres saltar o tutorial? 🤔')) {
+            if (confirm('Tens a certeza que queres saltar o tutorial? ðŸ¤”')) {
                 endTutorial();
             }
         });
@@ -2572,7 +2584,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => startTutorial(), 800);
     }
 
-    // Restart tutorial button (🤖 in dashboard header)
+    // Restart tutorial button (ðŸ¤– in dashboard header)
     const tutorialRestartBtn = document.getElementById('tutorial-restart-btn');
     if (tutorialRestartBtn) {
         tutorialRestartBtn.addEventListener('click', () => {

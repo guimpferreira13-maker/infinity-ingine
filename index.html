@@ -427,6 +427,29 @@
     </div>
 
     <!-- Scripts -->
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue, get, set, child } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB7q_H3mjsl4mMQJDw92OpOCp0Fw46oy3A",
+            authDomain: "game-blocks-4a0e6.firebaseapp.com",
+            projectId: "game-blocks-4a0e6",
+            storageBucket: "game-blocks-4a0e6.firebasestorage.app",
+            messagingSenderId: "931954350894",
+            appId: "1:931954350894:web:83fc2b62b7cf62377778bf",
+            measurementId: "G-JTE895D92R"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Expor apenas o necessário para o app.js funcionar de forma assíncrona
+        window.FB_DB = db;
+        window.FB_OPS = { ref, push, onValue, get, set, child };
+    </script>
+
     <script src="blocks.js"></script>
     <script src="stage.js"></script>
     <script src="interpreter.js"></script>
