@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
             error_loading: 'Aparentemente não há jogos para exibir ou ocorreu um erro ao carregá-los.',
             use_new_card: 'Use o cartão <b>+ Novo Jogo</b> para criar o seu!',
             be_first_publish: 'Seja o primeiro a publicar um jogo na comunidade!',
+            laptop_warning: '💻 Os jogos da comunidade apenas podem ser testados/jogados no computador.',
+            note_label: 'NOTA',
             by_author: 'Por:',
             anon_author: 'Anônimo',
             no_title: 'Sem Título',
@@ -201,6 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
             error_loading: 'Apparently there are no games to display or an error occurred while loading them.',
             use_new_card: 'Use the <b>+ New Game</b> card to create yours!',
             be_first_publish: 'Be the first to publish a game to the community!',
+            laptop_warning: '💻 Community games can only be tested/played on a computer.',
+            note_label: 'NOTE',
             by_author: 'By:',
             anon_author: 'Anonymous',
             no_title: 'Untitled',
@@ -314,6 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
             error_loading: 'Al parecer no hay juegos para mostrar o ocurrió un error al cargarlos.',
             use_new_card: '¡Usa la tarjeta <b>+ Nuevo Juego</b> para crear el tuyo!',
             be_first_publish: '¡Sé el primero en publicar un juego en la comunidad!',
+            laptop_warning: '💻 Los juegos de la comunidad solo se pueden probar/jugar en la computadora.',
+            note_label: 'NOTA',
             by_author: 'Por:',
             anon_author: 'Anónimo',
             no_title: 'Sin Título',
@@ -1019,6 +1025,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (tabName === 'community') {
                 document.querySelector('.new-project').style.display = 'none';
+
+                // Add premium laptop warning
+                const t = TRANSLATIONS[currentLang];
+                const warning = document.createElement('div');
+                warning.className = 'community-warning-premium';
+                warning.innerHTML = `
+                    <div class="warning-badge" data-i18n="note_label">${t.note_label}</div>
+                    <div class="warning-icon">💻</div>
+                    <div class="warning-text" data-i18n="laptop_warning">${t.laptop_warning}</div>
+                `;
+                projectsGrid.appendChild(warning);
 
                 let commProjects = projectMgr.getCommunityProjects();
 

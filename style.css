@@ -2022,3 +2022,105 @@ body {
         transform: scale(0.95);
     }
 }
+
+/* Premium Community Warning */
+.community-warning-premium {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 28px;
+    margin-bottom: 30px;
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    animation: warningFloat 4s ease-in-out infinite, warningGlow 3s ease-in-out infinite alternate;
+    width: 100%;
+}
+
+.warning-badge {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 900;
+    padding: 5px 10px;
+    border-radius: 8px;
+    letter-spacing: 1.2px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.warning-icon {
+    font-size: 1.8rem;
+    animation: iconBounce 2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+.warning-text {
+    color: #f8fafc;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes warningFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes warningGlow {
+    from {
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    to {
+        border-color: rgba(99, 102, 241, 0.6);
+        box-shadow: 0 12px 40px rgba(99, 102, 241, 0.2);
+    }
+}
+
+@keyframes iconBounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.25) rotate(15deg);
+    }
+}
+
+@media (max-width: 900px) {
+    .community-warning-premium {
+        background: rgba(239, 68, 68, 0.15);
+        border-color: rgba(239, 68, 68, 0.4);
+        padding: 14px 20px;
+        gap: 12px;
+        backdrop-filter: blur(10px);
+    }
+
+    .warning-badge {
+        background: #ef4444;
+        font-size: 0.7rem;
+    }
+
+    .warning-icon {
+        font-size: 1.4rem;
+    }
+
+    .warning-text {
+        font-size: 0.95rem;
+    }
+}$css
