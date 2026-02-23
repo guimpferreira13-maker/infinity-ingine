@@ -36,6 +36,13 @@ const BLOCK_DEFINITIONS = [
         isStarter: true,
         nextConnection: true
     },
+    {
+        type: 'event_clicked',
+        category: 'events',
+        label: 'Quando este personagem for clicado',
+        isStarter: true,
+        nextConnection: true
+    },
 
     // --- Motion ---
     {
@@ -241,6 +248,44 @@ const BLOCK_DEFINITIONS = [
         hasNested: true,
         prevConnection: true,
         nextConnection: false // Cannot have blocks after it (usually)
+    },
+
+    // --- Logic ---
+    {
+        type: 'logic_if',
+        category: 'logic',
+        label: 'Se %s = %s então',
+        params: [
+            { type: 'text', default: '1', name: 'val1' },
+            { type: 'text', default: '1', name: 'val2' }
+        ],
+        hasNested: true,
+        prevConnection: true,
+        nextConnection: true
+    },
+
+    // --- Variables ---
+    {
+        type: 'variable_set',
+        category: 'variables',
+        label: 'Defina %s como %n',
+        params: [
+            { type: 'text', default: 'pontos', name: 'var' },
+            { type: 'number', default: 0, name: 'value' }
+        ],
+        prevConnection: true,
+        nextConnection: true
+    },
+    {
+        type: 'variable_change',
+        category: 'variables',
+        label: 'Mude %s por %n',
+        params: [
+            { type: 'text', default: 'pontos', name: 'var' },
+            { type: 'number', default: 1, name: 'dx' }
+        ],
+        prevConnection: true,
+        nextConnection: true
     }
 ];
 

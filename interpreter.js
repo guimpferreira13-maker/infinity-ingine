@@ -9,6 +9,7 @@ class Interpreter {
         this.isRunning = false;
         this.executionQueue = [];
         this.activeTimeouts = [];
+        this.variables = {}; // Store for user variables
     }
 
     /**
@@ -215,33 +216,35 @@ class Interpreter {
             case 'event_death': break; // Trigger handled by enemy checker
 
             // Motion - Relative
-            case 'motion_move': await this.smoothMove(Number(params.steps)); break;
-            case 'motion_move_back': await this.smoothMove(-Number(params.steps)); break;
+            case 'motion_move': await this.smoothMove(Number(this.resolveValue(params.steps))); break;
+            case 'motion_move_back': await this.smoothMove(-Number(this.resolveValue(params.steps))); break;
             case 'motion_jump': await this.jump(); break;
-            case 'motion_change_x': this.stage.sprite.x += Number(params.dx); this.stage.updateUI(); break;
-            case 'motion_change_y': this.stage.sprite.y += Number(params.dy); this.stage.updateUI(); break;
+            case 'motion_change_x': this.stage.sprite.x += Number(this.resolveValue(params.dx)); this.stage.updateUI(); break;
+            case 'motion_change_y': this.stage.sprite.y += Number(this.resolveValue(params.dy)); this.stage.updateUI(); break;
 
             // Motion - Absolute
-            case 'motion_set_x': this.stage.sprite.x = Number(params.x); this.stage.updateUI(); break;
-            case 'motion_set_y': this.stage.sprite.y = Number(params.y); this.stage.updateUI(); break;
-            case 'motion_goto_xy': this.stage.gotoXY(Number(params.x), Number(params.y)); break;
+            case 'motion_set_x': this.stage.sprite.x = Number(this.resolveValue(params.x)); this.stage.updateUI(); break;
+            case 'motion_set_y': this.stage.sprite.y = Number(this.resolveValue(params.y)); this.stage.updateUI(); break;
+            case 'motion_goto_xy': this.stage.gotoXY(Number(this.resolveValue(params.x)), Number(this.resolveValue(params.y))); break;
 
             // Motion - Rotation
-            case 'motion_turn_right': this.stage.turnRight(Number(params.degrees)); break;
-            case 'motion_turn_left': this.stage.turnLeft(Number(params.degrees)); break;
+            case 'motion_turn_right': this.stage.turnRight(Number(this.resolveValue(params.degrees))); break;
+            case 'motion_turn_left': this.stage.turnLeft(Number(this.resolveValue(params.degrees))); break;
             case 'motion_bounce_on_edge': this.stage.bounceOnEdge(); break;
 
             case 'motion_glide':
-                await this.handleGlide(Number(params.seconds), Number(params.x), Number(params.y));
+                await this.handleGlide(Number(this.resolveValue(params.seconds)), Number(this.resolveValue(params.x)), Number(this.resolveValue(params.y)));
                 break;
 
             // Looks
             case 'looks_say':
-                this.stage.say(params.message, Number(params.seconds));
-                if (Number(params.seconds) > 0) await this.wait(Number(params.seconds) * 1000);
+                const msg = String(this.resolveValue(params.message));
+                const dur = Number(this.resolveValue(params.seconds));
+                this.stage.say(msg, dur);
+                if (dur > 0) await this.wait(dur * 1000);
                 break;
-            case 'looks_change_color': this.stage.changeColor(Number(params.amount)); break;
-            case 'looks_set_size': this.stage.setSize(Number(params.size)); break;
+            case 'looks_change_color': this.stage.changeColor(Number(this.resolveValue(params.amount))); break;
+            case 'looks_set_size': this.stage.setSize(Number(this.resolveValue(params.size))); break;
             case 'looks_show': this.stage.show(); break;
             case 'looks_hide': this.stage.hide(); break;
 
@@ -249,9 +252,23 @@ class Interpreter {
             case 'sound_play_beep': this.stage.playPop(); break;
 
             // Control
-            case 'control_wait': await this.wait(Number(params.seconds) * 1000); break;
-            case 'control_repeat': await this.handleRepeat(blockEl, params); break;
+            case 'control_wait': await this.wait(Number(this.resolveValue(params.seconds)) * 1000); break;
+            case 'control_repeat': await this.handleRepeat(blockEl, params); return 'SKIP_REMAINING';
             case 'control_forever': return 'LOOP_RESET';
+
+            // Logic
+            case 'logic_if': await this.handleIf(blockEl, params); return 'SKIP_REMAINING';
+
+            // Variables
+            case 'variable_set':
+                this.variables[params.var] = this.resolveValue(params.value);
+                this.log(`Variable ${params.var} = ${this.variables[params.var]}`, 'system');
+                break;
+            case 'variable_change':
+                const oldVal = Number(this.variables[params.var] || 0);
+                this.variables[params.var] = oldVal + Number(this.resolveValue(params.dx));
+                this.log(`Variable ${params.var} = ${this.variables[params.var]}`, 'system');
+                break;
         }
     }
 
@@ -416,9 +433,55 @@ class Interpreter {
         }
 
         // Skip past the blocks we already executed so executeStack doesn't re-run them
-        // We do this by removing them from the "next" chain temporarily
-        // Actually, the cleaner approach: return a signal to skip remaining siblings
         return 'SKIP_REMAINING';
+    }
+
+    async handleIf(blockEl, params) {
+        const val1 = this.resolveValue(params.val1);
+        const val2 = this.resolveValue(params.val2);
+        const condition = (String(val1) === String(val2));
+
+        if (!condition) {
+            this.log(`Conditions not met: ${val1} != ${val2}`, 'info');
+            return; // Skip remaining blocks
+        }
+
+        this.log(`Condition met: ${val1} == ${val2}`, 'success');
+
+        // Collect and execute siblings (same as repeat, but only once)
+        const blocksToExecute = this.collectStackSiblings(blockEl);
+        for (const block of blocksToExecute) {
+            if (!this.isRunning) break;
+            this.highlightBlock(block, true);
+            await this.executeBlock(block);
+            this.highlightBlock(block, false);
+            await this.wait(1);
+        }
+    }
+
+    collectStackSiblings(blockEl) {
+        const stack = [];
+        let sibling = blockEl.nextElementSibling;
+        let previousBlock = blockEl;
+
+        while (sibling) {
+            if (sibling.classList.contains('workspace-block') && !sibling.classList.contains('dragging')) {
+                const type = sibling.dataset.type;
+                if (type === 'event_flag' || type === 'event_key' || type === 'event_touch_goal' || type === 'event_death') break;
+
+                const currentRect = sibling.getBoundingClientRect();
+                const prevRect = previousBlock.getBoundingClientRect();
+                const vDist = currentRect.top - prevRect.bottom;
+                const hDist = Math.abs(currentRect.left - prevRect.left);
+
+                if (vDist > 25 || hDist > 25) break;
+
+                stack.push(sibling);
+                previousBlock = sibling;
+            }
+            sibling = sibling.nextElementSibling;
+        }
+        return stack;
     }
     async handleForever(blockEl) {
         // Handled in executeStack via return value
@@ -468,6 +531,15 @@ class Interpreter {
             params[input.name] = input.value;
         });
         return params;
+    }
+
+    resolveValue(val) {
+        // If the value is a known variable name, return the variable value
+        if (this.variables.hasOwnProperty(val)) {
+            return this.variables[val];
+        }
+        // Otherwise return as number if possible, or string
+        return isNaN(val) ? val : Number(val);
     }
 
     highlightBlock(blockEl, active) {

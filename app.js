@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cat_looks: 'Aparência',
             cat_sound: 'Som',
             cat_control: 'Controle',
+            cat_logic: 'Lógica',
+            cat_variables: 'Variáveis',
             cat_events: 'Eventos',
             code_area: 'Área de Código',
             clear: 'Limpar',
@@ -148,6 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cat_looks: 'Looks',
             cat_sound: 'Sound',
             cat_control: 'Control',
+            cat_logic: 'Logic',
+            cat_variables: 'Variables',
             cat_events: 'Events',
             code_area: 'Code Area',
             clear: 'Clear',
@@ -259,6 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cat_looks: 'Apariencia',
             cat_sound: 'Sonido',
             cat_control: 'Control',
+            cat_logic: 'Lógica',
+            cat_variables: 'Variables',
             cat_events: 'Eventos',
             code_area: 'Área de Código',
             clear: 'Limpar',
@@ -371,7 +377,12 @@ document.addEventListener('DOMContentLoaded', () => {
             sound_play_beep: 'Tocar som Pop',
             control_wait: 'Espere %n segs',
             control_repeat: 'Repita %n vezes',
-            control_forever: 'Sempre'
+            control_forever: 'Sempre',
+            logic_if: 'Se %s então',
+            logic_compare: '%s = %s',
+            variable_set: 'Defina %s como %n',
+            variable_change: 'Mude %s por %n',
+            event_clicked: 'Quando este personagem for clicado'
         },
         en: {
             event_flag: 'When 🏳️ clicked',
@@ -400,7 +411,12 @@ document.addEventListener('DOMContentLoaded', () => {
             sound_play_beep: 'Play Pop sound',
             control_wait: 'Wait %n secs',
             control_repeat: 'Repeat %n times',
-            control_forever: 'Forever'
+            control_forever: 'Forever',
+            logic_if: 'If %s then',
+            logic_compare: '%s = %s',
+            variable_set: 'Set %s to %n',
+            variable_change: 'Change %s by %n',
+            event_clicked: 'When this character clicked'
         },
         es: {
             event_flag: 'Cuando 🏳️ sea pulsado',
@@ -429,7 +445,12 @@ document.addEventListener('DOMContentLoaded', () => {
             sound_play_beep: 'Tocar sonido Pop',
             control_wait: 'Esperar %n segs',
             control_repeat: 'Repetir %n veces',
-            control_forever: 'Siempre'
+            control_forever: 'Siempre',
+            logic_if: 'Si %s entonces',
+            logic_compare: '%s = %s',
+            variable_set: 'Fijar %s a %n',
+            variable_change: 'Cambiar %s por %n',
+            event_clicked: 'Al hacer clic en este objeto'
         }
     };
 
@@ -556,6 +577,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Interpreter
     const interpreter = new Interpreter(stage);
+
+    // Handle Sprite Clicks (event_clicked)
+    const stageCanvas = document.getElementById('stage-canvas');
+    if (stageCanvas) {
+        stageCanvas.addEventListener('click', (e) => {
+            if (!interpreter.isRunning) return;
+
+            const rect = stageCanvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            // Convert screen click to Cartesian world (relative to camera)
+            // worldToScreen: screen.x = W/2 + (wx - cam.x)
+            // wx = screen.x - W/2 + cam.x
+            const worldX = (clickX - stageCanvas.width / 2) + stage.camera.x;
+            const worldY = (stageCanvas.height / 2 - clickY) + stage.camera.y;
+
+            // Simple Distance check for "click" on sprite center (radius based)
+            const dist = Math.sqrt(Math.pow(worldX - stage.sprite.x, 2) + Math.pow(worldY - stage.sprite.y, 2));
+            const spriteRadius = (stage.sprite.size / 100) * 32; // Sprite is ~64px base
+
+            if (dist < spriteRadius) {
+                const clickedBlocks = Array.from(workspaceEl.querySelectorAll('.workspace-block'))
+                    .filter(el => el.dataset.type === 'event_clicked');
+                clickedBlocks.forEach(root => interpreter.executeStack(root));
+            }
+        });
+    }
 
     // UI References
     const paletteEl = document.getElementById('block-palette');
@@ -2093,7 +2142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- PLAYER MODE LOGIC ---
     const playerStageMount = document.getElementById('player-stage-mount');
     const editorStageMount = document.querySelector('.canvas-wrapper');
-    const stageCanvas = document.getElementById('stage-canvas');
+    // stageCanvas already declared above
 
     function playProject(project) {
         // 1. Load data (silently fills workspace for interpreter)

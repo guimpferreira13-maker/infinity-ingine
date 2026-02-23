@@ -18,6 +18,8 @@
     --color-looks: #9966ff;
     --color-sound: #cf63cf;
     --color-control: #ffab19;
+    --color-logic: #59c059;
+    --color-variables: #ff8c1a;
     --color-events: #ffbf00;
 
     /* Glass Effect */
@@ -635,17 +637,24 @@ body {
     background-color: var(--color-looks);
 }
 
+.block[data-category="sound"] {
+    background-color: var(--color-sound);
+}
+
 .block[data-category="control"] {
     background-color: var(--color-control);
 }
 
-.block[data-category="events"] {
-    background-color: var(--color-events);
+.block[data-category="logic"] {
+    background-color: var(--color-logic);
 }
 
-.block[data-category="sound"] {
-    background-color: #CF63CF;
-    /* Pink/Purple for sound */
+.block[data-category="variables"] {
+    background-color: var(--color-variables);
+}
+
+.block[data-category="events"] {
+    background-color: var(--color-events);
 }
 
 
