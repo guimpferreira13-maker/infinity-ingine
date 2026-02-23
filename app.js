@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tut_step_7: 'Segundo desafio: Clica na aba azul e arrasta o bloco <strong>"Mover 10 passos"</strong> para o lado.',
             tut_step_8: 'Agora encaixa os dois! Acabaste de programar: <em>"Quando eu carregar na tecla -> O herói move-se"</em>. Incrível!',
             tut_step_9: '🎬 Este é o <strong>Palco</strong>. É aqui que vês o teu herói e o teu mundo ganhar vida.',
-            tut_step_10: 'Hora do teste! Carrega em <strong>▶ Executar</strong> e usa as setas do teclado. O jogo é teu!',
+            tut_step_10: 'Hora do teste! Clica em <strong>▶ Executar</strong> para ligar o motor e depois pressiona a tecla que escolheste. Está vivo!',
             tut_step_11: '🎨 Queres mudar o herói, o fundo ou desenhar obstáculos? Usa estes botões mágicos.',
             tut_step_12: '💾 Não te esqueças de <strong>Guardar</strong> ou <strong>Publicar</strong> para outros jogarem o teu nível!',
             tut_step_13: '<span class="emoji-big">🚀</span>Parabéns! Já és um programador. Agora o limite é a tua imaginação. Diverte-te!'
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tut_step_7: 'Second challenge: Click on the blue tab and drag the <strong>"Move 10 steps"</strong> block to the side.',
             tut_step_8: 'Now snap them together! You just programmed: <em>"When I press the key -> The hero moves"</em>. Amazing!',
             tut_step_9: '🎬 This is the <strong>Stage</strong>. This is where you see your hero and your world come to life.',
-            tut_step_10: 'Test time! Press <strong>▶ Run</strong> and use the keyboard arrows. The game is yours!',
+            tut_step_10: 'Test time! Click <strong>▶ Run</strong> to start the engine, then press the key you chose. It\'s alive!',
             tut_step_11: '🎨 Want to change the hero, the background or draw obstacles? Use these magic buttons.',
             tut_step_12: '💾 Don\'t forget to <strong>Save</strong> or <strong>Publish</strong> for others to play your level!',
             tut_step_13: '<span class="emoji-big">🚀</span>Congratulations! You\'re officially a programmer. Now your imagination is the limit. Have fun!'
@@ -339,18 +339,18 @@ document.addEventListener('DOMContentLoaded', () => {
             mascot_next: 'Siguiente ➜',
             mascot_start: '¡Empezar! 🚀',
             tut_step_1: '<span class="emoji-big">👋</span>¡Hola! Soy <strong>Bit</strong>. ¿Aprendemos a crear tu primer juego en 1 minuto?',
-            tut_step_2: 'Aquí en el <strong>Panel</strong> puedes ver tus proyectos y los de la comunidad.',
-            tut_step_3: '<span class="emoji-big">🧩</span>Este es el <strong>Panel de Bloques</strong>. ¡Aquí es donde ocurre toda la lógica del juego!',
-            tut_step_4: '<div class="tutorial-block-card"><div class="block-preview" style="background:#FFBF00">🏁</div><div class="block-info"><span class="block-name">Eventos</span><span class="block-desc">Los bloques amarillos son los disparadores. ¡Nada pasa sin ellos!</span></div></div>Estos bloques le dicen al juego <strong>CUÁNDO</strong> debe ocurrir algo.',
-            tut_step_5: '<div class="tutorial-block-card"><div class="block-preview" style="background:#4C97FF">👟</div><div class="block-info"><span class="block-name">Movimiento</span><span class="block-desc">Mover, girar y saltar.</span></div></div>Los bloques azules controlan la <strong>posición</strong> y dirección de tu personaje.',
-            tut_step_6: '<div class="tutorial-block-card"><div class="block-preview" style="background:#9966FF">✨</div><div class="block-info"><span class="block-name">Apariencia</span><span class="block-desc">Cambiar aspecto y hablar.</span></div></div>Con los bloques morados puedes cambiar el aspecto o hacer que el personaje <strong>hable</strong>.',
-            tut_step_7: '<div class="tutorial-block-card"><div class="block-preview" style="background:#FFAB19">🔄</div><div class="block-info"><span class="block-name">Control</span><span class="block-desc">Bucles y esperas.</span></div></div>Los bloques naranja sirven para <strong>repetir</strong> acciones o esperar antes de hacer algo.',
-            tut_step_8: '🖱️ Arrastra los bloques al <strong>Área de Código</strong>. ¡Encájalos como piezas de puzzle para crear secuencias de acciones!',
-            tut_step_9: '🎬 Este es el <strong>Escenario</strong>. ¡Aquí es donde ves tus bloques cobrar vida! Pulsa <strong>▶ Ejecutar</strong> para probar.',
-            tut_step_10: '🎨 Usa estos botones para editar el <strong>Personaje</strong>, cambiar el <strong>Fundo</strong> o dibujar tu <strong>Nivel</strong>.',
-            tut_step_11: '💾 ¡No olvides <strong>Guardar</strong> tu progreso o <strong>Publicar</strong> para que lo vea toda la comunidad!',
-            tut_step_12: '📊 Las <strong>Propiedades</strong> (X, Y, Dirección) muestran la posición actual del personaje. La <strong>Consola</strong> de abajo muestra mensajes del programa y errores.',
-            tut_step_13: '<span class="emoji-big">🚀</span>¡Increíble! Ahora intenta arrastrar un bloque de <strong>Evento</strong> y uno de <strong>Movimento</strong>. ¡Diviértete creando!'
+            tut_step_2: '¡Haz clic aquí en el robot 🤖 para comenzar tu aventura de creador!',
+            tut_step_3: '<span class="emoji-big">🧩</span>Bienvenido al Editor. Aquí, estos <strong>Bloques</strong> coloridos son tus "órdenes" para el juego.',
+            tut_step_4: '<div class="tutorial-block-card"><div class="block-preview" style="background:#FFBF00">🏁</div><div class="block-info"><span class="block-name">Eventos</span><span class="block-desc">Los bloques amarillos deciden CUÁNDO sucede algo.</span></div></div>¡Nada comienza sin un disparador!',
+            tut_step_5: 'Primer desafío: Haz clic en la pestaña amarilla y busca el bloque <strong>"Cuando tecla flecha derecha presionada"</strong>.',
+            tut_step_6: '<div class="tutorial-block-card"><div class="block-preview" style="background:#4C97FF">👟</div><div class="block-info"><span class="block-name">Movimiento</span><span class="block-desc">¡Los bloques azules sirven para dar vida y movimiento!</span></div></div>Vamos a hacer que el héroe camine.',
+            tut_step_7: 'Segundo desafío: Haz clic en la pestaña azul e arrastra el bloque <strong>"Mover 10 pasos"</strong> al lado.',
+            tut_step_8: '¡Ahora encaja los dos! Acabas de programar: <em>"Cuando presiono la tecla -> El héroe se mueve"</em>. ¡Increíble!',
+            tut_step_9: '🎬 Este es el <strong>Escenario</strong>. Aquí es donde ves a tu héroe y tu mundo cobrar vida.',
+            tut_step_10: '¡Hora de la prueba! Haz clic en <strong>▶ Ejecutar</strong> para encender el motor y luego pulsa la tecla que elegiste. ¡Está vivo!',
+            tut_step_11: '🎨 ¿Quieres cambiar el héroe, el fondo o dibujar obstáculos? Usa estos botones mágicos.',
+            tut_step_12: '💾 ¡No olvides <strong>Guardar</strong> o <strong>Publicar</strong> para que otros jueguen tu nivel!',
+            tut_step_13: '<span class="emoji-big">🚀</span>¡Felicidades! Ya eres un programador. Ahora el límite es tu imaginación. ¡Diviértete!'
         }
     };
 
