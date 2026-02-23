@@ -1589,10 +1589,95 @@ body {
 /* Tutorial highlight overlay */
 .tutorial-highlight {
     position: relative;
-    z-index: 9999;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.6), 0 0 20px rgba(99, 102, 241, 0.3);
+    z-index: 10001;
+    /* Above dimming */
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.6), 0 0 30px rgba(99, 102, 241, 0.5);
     border-radius: 8px;
     animation: highlightPulse 1.5s ease-in-out infinite;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tutorial-dim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 10000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.tutorial-dim.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Block Card inside Tutorial */
+.tutorial-block-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: cardSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.block-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.block-info {
+    flex: 1;
+}
+
+.block-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: block;
+}
+
+.block-desc {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes highlightPulse {
+    0% {
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.4), 0 0 20px rgba(99, 102, 241, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(99, 102, 241, 0.6), 0 0 40px rgba(99, 102, 241, 0.4);
+    }
+
+    100% {
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.4), 0 0 20px rgba(99, 102, 241, 0.2);
+    }
 }
 
 /* Language Selector */
@@ -2123,4 +2208,4 @@ body {
     .warning-text {
         font-size: 0.95rem;
     }
-}$css
+}
