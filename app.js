@@ -1387,16 +1387,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         draggedBlock.classList.remove('dragging');
 
-        // Hide trash zone
-        if (blockTrash) {
-            blockTrash.classList.add('hidden');
-            blockTrash.classList.remove('drag-over');
-        }
-
-        // Check if dropped on trash zone
+        // Check if dropped on trash zone BEFORE hiding it
         const blockRect = draggedBlock.getBoundingClientRect();
         let droppedOnTrash = false;
-        if (blockTrash) {
+        if (blockTrash && !blockTrash.classList.contains('hidden')) {
             const trashRect = blockTrash.getBoundingClientRect();
             droppedOnTrash = (
                 blockRect.left < trashRect.right &&
@@ -1404,6 +1398,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 blockRect.top < trashRect.bottom &&
                 blockRect.bottom > trashRect.top
             );
+        }
+
+        // Now hide trash zone
+        if (blockTrash) {
+            blockTrash.classList.add('hidden');
+            blockTrash.classList.remove('drag-over');
         }
 
         if (droppedOnTrash) {
