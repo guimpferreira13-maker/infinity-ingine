@@ -654,8 +654,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Ensure admin account exists with correct password
-            const adminUser = this.users.find(u => u.username === 'admin');
+            const adminUser = this.users.find(u => u.username.toLowerCase() === 'admin');
             if (adminUser) {
+                adminUser.username = 'admin'; // Normalize case to lowercase
                 adminUser.password = 'admin123'; // Always reset admin password
             } else {
                 this.users.push({ username: 'admin', password: 'admin123' });
@@ -663,22 +664,25 @@ document.addEventListener('DOMContentLoaded', () => {
             this.save();
 
             this.currentUser = localStorage.getItem('infinity_current_user');
+            if (this.currentUser) this.currentUser = this.currentUser.toLowerCase();
         }
 
         register(username, password) {
-            if (this.users.find(u => u.username === username)) {
+            const normalized = username.trim().toLowerCase();
+            if (this.users.find(u => u.username.toLowerCase() === normalized)) {
                 return { success: false, message: "⚠️ Este nome já está em uso!" };
             }
 
-            const newUser = { username, password };
+            const newUser = { username: normalized, password };
             this.users.push(newUser);
             this.save();
-            this.login(username, password);
+            this.login(normalized, password);
             return { success: true };
         }
 
         login(username, password) {
-            const user = this.users.find(u => u.username === username);
+            const normalized = username.trim().toLowerCase();
+            const user = this.users.find(u => u.username.toLowerCase() === normalized);
             const t = TRANSLATIONS[currentLang];
 
             if (!user) {
@@ -689,8 +693,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return { success: false, message: t.err_wrong_pass || "🔒 Senha incorreta!" };
             }
 
-            this.currentUser = username;
-            localStorage.setItem('infinity_current_user', username);
+            this.currentUser = normalized;
+            localStorage.setItem('infinity_current_user', normalized);
             return { success: true };
         }
 
@@ -753,7 +757,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         getMyProjects() {
             if (userMgr.currentUser) {
-                return this.myProjects.filter(p => p.author === userMgr.currentUser);
+                const normalizedUser = userMgr.currentUser.toLowerCase();
+                return this.myProjects.filter(p => p && p.author && p.author.toLowerCase() === normalizedUser);
             }
             return [];
         }
@@ -1135,6 +1140,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     btnNewProject.addEventListener('click', () => {
+        if (!userMgr.isLoggedIn()) {
+            const t = TRANSLATIONS[currentLang];
+            alert(t.err_fill_auth || "⚠️ Por favor, faça login primeiro!");
+            switchView('landing');
+            return;
+        }
+
         // RESET STATE for New Project
         currentProjectID = null;
         workspaceEl.innerHTML = '<div class="workspace-grid"></div><div class="start-hint">Arraste blocos para cá para começar</div><div id="drag-container"></div>';
@@ -2298,9 +2310,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveBtn = document.getElementById('save-project-btn');
     if (saveBtn) {
         saveBtn.addEventListener('click', () => {
+            if (!userMgr.isLoggedIn()) {
+                const t = TRANSLATIONS[currentLang];
+                alert(t.err_fill_auth || "⚠️ Por favor, faça login para salvar!");
+                switchView('landing');
+                return;
+            }
+
             // Default Title logic: existing title if editing, or generic
-            // We need to store title in state to pre-fill prompt properly? 
-            // For now, prompt blank or generic is fine.
             const title = prompt("Nome do Projeto:", "Meu Jogo Incrível");
             if (!title) return;
 
