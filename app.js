@@ -629,21 +629,72 @@ document.addEventListener('DOMContentLoaded', async () => {
         landing: document.getElementById('view-landing'),
         dashboard: document.getElementById('view-dashboard'),
         editor: document.getElementById('view-editor'),
-        player: document.getElementById('view-player')
+        player: document.getElementById('view-player'),
+        about: document.getElementById('view-about'),
+        tutorials: document.getElementById('view-tutorials'),
+        examples: document.getElementById('view-examples'),
+        community: document.getElementById('view-community')
     };
 
+    const mainNavbar = document.getElementById('main-navbar');
+    const navUserDisplay = document.getElementById('nav-user-display');
+    const navLogoutBtn = document.getElementById('nav-logout-btn');
+
     function switchView(viewName) {
+        // Dashboard, About, Tutorials, Examples, Community all use the global navbar
+        const usesNavbar = ['dashboard', 'about', 'tutorials', 'examples', 'community'].includes(viewName);
+
+        if (mainNavbar) {
+            mainNavbar.classList.toggle('hidden', !usesNavbar);
+            document.body.classList.toggle('has-navbar', usesNavbar);
+        }
+
         Object.values(views).forEach(el => {
+            if (!el) return;
             el.classList.remove('active-view');
             el.classList.add('hidden');
         });
 
         const target = views[viewName];
+        if (!target) return;
+
         target.classList.remove('hidden');
-        // Small delay to allow display:block to apply before opacity transition
+
+        // Update Nav Active State
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.toggle('active', link.dataset.view === viewName);
+        });
+
+        // Trigger logic for specific views
+        if (viewName === 'dashboard') renderDashboard('my-projects');
+        if (viewName === 'community') renderDashboard('community');
+        if (viewName === 'examples') initExamples();
+
         setTimeout(() => {
             target.classList.add('active-view');
         }, 10);
+    }
+
+    // Global Nav Listeners
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            switchView(link.dataset.view);
+        });
+    });
+
+    if (navLogoutBtn) {
+        navLogoutBtn.addEventListener('click', () => {
+            userMgr.logout();
+            UiSounds.trash();
+            showNotification(TRANSLATIONS[currentLang].logout || "Sessão terminada.", "info");
+        });
+    }
+
+    // Update Nav User Info
+    function updateNavUser() {
+        if (navUserDisplay) {
+            navUserDisplay.textContent = userMgr.currentUser || "Visitante";
+        }
     }
 
     // --- DATA MANAGERS ---
@@ -931,9 +982,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Auto Login Check
     if (userMgr.isLoggedIn()) {
-        userDisplay.textContent = userMgr.currentUser;
+        updateNavUser();
         switchView('dashboard');
-        await renderDashboard('my-projects');
     }
 
     // Logout Handler
@@ -968,10 +1018,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Attempt Login
             const result = userMgr.login(username, password);
             if (result.success) {
-                userDisplay.textContent = userMgr.currentUser;
+                updateNavUser();
                 UiSounds.start();
                 switchView('dashboard');
-                await renderDashboard('my-projects');
             } else {
                 if (authMessage) {
                     authMessage.textContent = result.message;
@@ -983,10 +1032,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Attempt Register
             const result = userMgr.register(username, password);
             if (result.success) {
-                userDisplay.textContent = userMgr.currentUser;
+                updateNavUser();
                 UiSounds.start();
                 switchView('dashboard');
-                await renderDashboard('my-projects');
             } else {
                 if (authMessage) {
                     authMessage.textContent = result.message;
@@ -1005,35 +1053,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // Dashboard Tabs
-    tabs.forEach(tab => {
-        tab.addEventListener('click', async () => {
-            console.log("Tab clicked:", tab.dataset.tab);
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            try {
-                await renderDashboard(tab.dataset.tab);
-            } catch (e) {
-                alert("Erro ao trocar de aba: " + e.message);
-                console.error(e);
-            }
-        });
-    });
+    /* Dashboard Tabs Logic Removed - Replaced by Global Nav */
 
     async function renderDashboard(tabName) {
         console.log("Rendering Dashboard:", tabName);
 
-        if (!projectsGrid) {
-            console.error("Erro Interno: Elemento '.projects-grid' não foi encontrado no HTML!");
-            return;
-        }
+        const targetGrid = tabName === 'community'
+            ? document.querySelector('#view-community .community-grid')
+            : document.querySelector('#view-dashboard .projects-grid');
+
+        if (!targetGrid) return;
 
         try {
             // 1. Clear grid safely
-            // Remove text nodes and cards, keeping .new-project
-            const children = Array.from(projectsGrid.childNodes);
+            const children = Array.from(targetGrid.childNodes);
             children.forEach(c => {
-                if (c.nodeType === 3) c.remove(); // Text nodes
+                if (c.nodeType === 3) c.remove();
                 if (c.classList && !c.classList.contains('new-project')) c.remove();
             });
 
@@ -1059,11 +1094,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 validProjects.forEach(p => {
                     const card = createProjectCard(p, true);
                     if (card) {
-                        projectsGrid.appendChild(card);
+                        targetGrid.appendChild(card);
                     }
                 });
 
-                const count = projectsGrid.querySelectorAll('.project-card:not(.new-project)').length;
+                const count = targetGrid.querySelectorAll('.project-card:not(.new-project)').length;
 
                 if (count === 0) {
                     const t = TRANSLATIONS[currentLang];
@@ -1076,7 +1111,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <p>${t.error_loading}</p>
                         ${tabName === 'my-projects' ? `<p>${t.use_new_card}</p>` : `<p>${t.be_first_publish}</p>`}
                     `;
-                    projectsGrid.appendChild(msg);
+                    targetGrid.appendChild(msg);
                 }
 
             } else {
@@ -1088,18 +1123,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 validMyProjs.forEach(p => {
                     const card = createProjectCard(p, false);
-                    if (card) projectsGrid.appendChild(card);
+                    if (card) targetGrid.appendChild(card);
                 });
 
                 // Post-render check for My Projects
-                const count = projectsGrid.querySelectorAll('.project-card:not(.new-project)').length;
+                const count = targetGrid.querySelectorAll('.project-card:not(.new-project)').length;
                 if (count === 0) {
                     const t = TRANSLATIONS[currentLang];
                     const msg = document.createElement('div');
                     msg.className = 'empty-state-msg';
                     msg.style.cssText = 'width: 100%; text-align: center; grid-column: 1 / -1; padding: 40px; color: #fff; font-size: 1.2rem;';
                     msg.innerHTML = `<h3>${t.no_my_games}</h3><p>${t.create_first_game}</p>`;
-                    projectsGrid.appendChild(msg);
+                    targetGrid.appendChild(msg);
                 }
             }
         } catch (e) {
@@ -1168,6 +1203,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         return div;
+    }
+
+    // --- OTHER VIEWS INITIALIZATION ---
+    async function initExamples() {
+        const grid = document.getElementById('examples-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        // Show community projects as examples for now
+        const commProjects = await projectMgr.getCommunityProjects();
+        commProjects.slice(0, 4).forEach(p => {
+            const card = createProjectCard(p, true);
+            grid.appendChild(card);
+        });
+    }
+
+    const startTutorialNav = document.getElementById('start-tutorial-nav');
+    if (startTutorialNav) {
+        startTutorialNav.querySelector('button').addEventListener('click', () => {
+            startTutorial();
+        });
     }
 
     btnNewProject.addEventListener('click', () => {
@@ -1283,10 +1339,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Control Buttons
-    document.getElementById('run-btn').addEventListener('click', () => {
-        UiSounds.start();
-        interpreter.run();
-    });
+    const runBtn = document.getElementById('run-btn');
+    if (runBtn) {
+        runBtn.addEventListener('click', () => {
+            UiSounds.start();
+            interpreter.run();
+            showNotification(TRANSLATIONS[currentLang].run_btn.replace('▶ ', '') + '...', 'info');
+            runBtn.classList.add('success-pop');
+            setTimeout(() => runBtn.classList.remove('success-pop'), 500);
+        });
+    }
 
     // Auto-start interpreter when a game key is pressed (no need to click Execute)
     const GAME_KEYS = new Set([
@@ -1301,7 +1363,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             interpreter.run();
         }
     });
-    document.getElementById('stop-btn').addEventListener('click', () => interpreter.stop());
+    const stopBtn = document.getElementById('stop-btn');
+    if (stopBtn) {
+        stopBtn.addEventListener('click', () => {
+            interpreter.stop();
+            showNotification(TRANSLATIONS[currentLang].stop_btn.replace('⏹ ', '') + '.', 'warning');
+        });
+    }
     document.getElementById('back-to-dash-btn').addEventListener('click', async () => {
         interpreter.stop();
         // Move canvas back to editor
@@ -2338,35 +2406,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Save Button
-    const saveBtn = document.getElementById('save-project-btn');
-    if (saveBtn) {
-        saveBtn.addEventListener('click', async () => {
+    const saveProjectBtn = document.getElementById('save-project-btn');
+    if (saveProjectBtn) {
+        saveProjectBtn.addEventListener('click', async () => {
             if (!userMgr.isLoggedIn()) {
                 const t = TRANSLATIONS[currentLang];
-                alert(t.err_fill_auth || "⚠️ Por favor, faça login para salvar!");
+                showNotification(t.err_fill_auth || "⚠️ Por favor, faça login para salvar!", "warning");
                 switchView('landing');
                 return;
             }
 
-            // Default Title logic: existing title if editing, or generic
             const title = prompt("Nome do Projeto:", "Meu Jogo Incrível");
             if (!title) return;
 
+            saveProjectBtn.classList.add('loading');
             const project = serializeProject(title);
             currentProjectID = project.id;
 
             if (await projectMgr.saveLocal(project)) {
                 UiSounds.success();
+                saveProjectBtn.classList.remove('loading');
+                saveProjectBtn.classList.add('success-pop');
+                showNotification("Projeto salvo com sucesso! ✅", "success");
+                setTimeout(() => saveProjectBtn.classList.remove('success-pop'), 500);
 
-                // Redirect to Dashboard -> My Projects
-                switchView('dashboard');
-
-                // Activate "My Projects" tab visually
-                tabs.forEach(t => t.classList.remove('active'));
-                const myProjTab = document.querySelector('[data-tab="my-projects"]');
-                if (myProjTab) myProjTab.classList.add('active');
-
-                await renderDashboard('my-projects');
+                // Redirect to Dashboard -> My Projects after a short delay
+                setTimeout(async () => {
+                    switchView('dashboard');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    const myProjTab = document.querySelector('[data-tab="my-projects"]');
+                    if (myProjTab) myProjTab.classList.add('active');
+                    await renderDashboard('my-projects');
+                }, 1000);
+            } else {
+                saveProjectBtn.classList.remove('loading');
+                showNotification("Erro ao salvar! ❌", "error");
             }
         });
     }
@@ -2376,20 +2450,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (publishBtn) {
         publishBtn.addEventListener('click', async () => {
             const title = prompt("Título para a Comunidade:") || "Jogo Sem Nome";
+
+            publishBtn.classList.add('loading');
             const newProject = serializeProject(title);
-            // Always new ID for publish to avoid overwriting local draft if we wanted separation, 
-            // but here we just publish the snapshot.
 
             if (await projectMgr.publish(newProject)) {
                 UiSounds.success();
-                alert(`Jogo "${title}" publicado na Comunidade! 🌍`);
+                publishBtn.classList.remove('loading');
+                publishBtn.classList.add('success-pop');
+                showNotification(`Jogo "${title}" publicado! 🌍`, "success");
+                setTimeout(() => publishBtn.classList.remove('success-pop'), 500);
 
-                switchView('dashboard');
-                // Force refresh community tab
-                const commTab = document.querySelector('[data-tab="community"]');
-                if (commTab) {
-                    commTab.click(); // This triggers the renderDashboard
-                }
+                setTimeout(() => {
+                    switchView('dashboard');
+                    const commTab = document.querySelector('[data-tab="community"]');
+                    if (commTab) commTab.click();
+                }, 1000);
+            } else {
+                publishBtn.classList.remove('loading');
+                showNotification("Erro ao publicar! ❌", "error");
             }
         });
     }
@@ -2595,6 +2674,63 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Apply saved language on load (moved to end to avoid TDZ errors)
+    // --- NOTIFICATION SYSTEM ---
+    function showNotification(message, type = 'info') {
+        let container = document.querySelector('.notification-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'notification-container';
+            document.body.appendChild(container);
+        }
+
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+
+        const icons = {
+            success: '✅',
+            error: '❌',
+            warning: '⚠️',
+            info: 'ℹ️'
+        };
+
+        notification.innerHTML = `
+            <span class="notification-icon">${icons[type] || '🔔'}</span>
+            <span class="notification-message">${message}</span>
+        `;
+
+        container.appendChild(notification);
+
+        // Auto-remove
+        setTimeout(() => {
+            notification.classList.add('fade-out');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
+    // Wrap buttons with feedback
+    function withFeedback(btnId, callback, successMsg) {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+
+        btn.addEventListener('click', async () => {
+            btn.classList.add('loading');
+            try {
+                const result = await callback();
+                if (result !== false) {
+                    btn.classList.remove('loading');
+                    btn.classList.add('success-pop');
+                    if (successMsg) showNotification(successMsg, 'success');
+                    setTimeout(() => btn.classList.remove('success-pop'), 500);
+                } else {
+                    btn.classList.remove('loading');
+                }
+            } catch (err) {
+                btn.classList.remove('loading');
+                showNotification(err.message, 'error');
+            }
+        });
+    }
+
+    // Apply saved language on load
     applyLanguage(currentLang);
 });

@@ -40,6 +40,31 @@
         </div>
     </div>
 
+    <nav id="main-navbar" class="main-navbar hidden">
+        <div class="nav-logo">
+            <div class="gb-logo">
+                <div class="gb-block blue"></div>
+                <div class="gb-block purple"></div>
+                <div class="gb-block orange"></div>
+            </div>
+            <span>GameBlocks</span>
+        </div>
+        <div class="nav-links">
+            <button class="nav-link active" data-view="dashboard" data-i18n="nav_home">Início</button>
+            <button class="nav-link" data-view="about" data-i18n="nav_about">Sobre</button>
+            <button class="nav-link" data-view="tutorials" data-i18n="nav_tutorials">Tutoriais</button>
+            <button class="nav-link" data-view="examples" data-i18n="nav_examples">Exemplos</button>
+            <button class="nav-link" data-view="community" data-i18n="nav_community">Comunidade</button>
+        </div>
+        <div class="nav-user">
+            <div class="nav-user-info">
+                <span id="nav-user-display" class="user-name">Visitante</span>
+                <div class="avatar">👤</div>
+            </div>
+            <button id="nav-logout-btn" class="icon-btn" title="Sair">🚪</button>
+        </div>
+    </nav>
+
     <div class="app-container">
 
         <!-- VIEW: LANDING / LOGIN -->
@@ -126,43 +151,12 @@
 
         <!-- VIEW: DASHBOARD -->
         <section id="view-dashboard" class="view-section hidden">
-            <header class="dash-header">
-                <div class="logo">
-                    <div class="gb-logo">
-                        <div class="gb-block blue"></div>
-                        <div class="gb-block purple"></div>
-                        <div class="gb-block orange"></div>
-                    </div>
-                    <span>GameBlocks</span>
-                </div>
-                <div class="user-profile">
-                    <div class="avatar">👤</div>
-                    <span id="user-display">Visitante</span>
-
-                    <div class="lang-selector-container">
-                        <button class="lang-btn-toggle icon-btn" title="Idioma / Language">🌐</button>
-                        <div class="lang-dropdown hidden">
-                            <button class="lang-option" data-lang="pt">🇧🇷 Português</button>
-                            <button class="lang-option" data-lang="en">🇬🇧 English</button>
-                            <button class="lang-option" data-lang="es">🇪🇸 Español</button>
-                        </div>
-                    </div>
-
-                    <button id="tutorial-restart-btn" class="icon-btn tutorial-header-btn" title="Rever Tutorial">
-                        🤖
-                        <span class="tutorial-btn-label">Tutorial</span>
-                    </button>
-                    <button id="logout-btn" class="icon-btn" title="Sair">🚪</button>
-                </div>
+            <header class="section-header">
+                <h1 data-i18n="nav_home">Teus Jogos</h1>
+                <p data-i18n="hero_subtitle">Gere e edita as tuas criações.</p>
             </header>
 
-            <div class="dash-body">
-                <div class="dash-tabs">
-                    <button class="dash-tab active" data-tab="my-projects" data-i18n="my_projects">Meus
-                        Projetos</button>
-                    <button class="dash-tab" data-tab="community" data-i18n="community">Comunidade</button>
-                </div>
-
+            <div class="projects-container">
                 <div class="projects-grid">
                     <div class="project-card new-project" id="btn-new-project">
                         <div class="card-icon">+</div>
@@ -170,6 +164,72 @@
                         <p>Comece do zero</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- VIEW: ABOUT -->
+        <section id="view-about" class="view-section hidden">
+            <div class="content-container glass-panel">
+                <h1 data-i18n="nav_about">Sobre o GameBlocks</h1>
+                <p>O GameBlocks é uma plataforma revolucionária para criação de jogos inspirada em blocos lógicos. Nossa
+                    missão é tornar a programação acessível, divertida e poderosa para todos.</p>
+                <div class="about-features">
+                    <div class="feature">
+                        <h3>🧩 Lógica Visual</h3>
+                        <p>Não precisa digitar código. Arraste e encaixe blocos para dar vida ao seu jogo.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🎮 Criatividade Sem Limites</h3>
+                        <p>Crie RPGs, plataformas, aventuras espaciais e muito mais.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🌍 Comunidade Ativa</h3>
+                        <p>Publique seus jogos e jogue as criações de outros usuários em tempo real.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: TUTORIALS -->
+        <section id="view-tutorials" class="view-section hidden">
+            <div class="content-container">
+                <h1 data-i18n="nav_tutorials">Tutoriais e Guias</h1>
+                <div class="tutorial-list">
+                    <div class="tutorial-card glass-panel" id="start-tutorial-nav">
+                        <div class="card-icon">🤖</div>
+                        <h3>Primeiros Passos</h3>
+                        <p>Aprenda o básico do editor em menos de 1 minuto!</p>
+                        <button class="main-btn">Abrir Tutorial</button>
+                    </div>
+                    <div class="tutorial-card glass-panel">
+                        <div class="card-icon">🏃</div>
+                        <h3>Criando um Plataforma</h3>
+                        <p>Como fazer gravidade, pulo e colisão.</p>
+                        <button class="secondary-btn">Em breve</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: EXAMPLES -->
+        <section id="view-examples" class="view-section hidden">
+            <div class="content-container">
+                <h1 data-i18n="nav_examples">Exemplos Prontos</h1>
+                <p>Explore estes projetos para ver o que é possível criar.</p>
+                <div class="examples-grid" id="examples-grid">
+                    <!-- Examples will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: COMMUNITY -->
+        <section id="view-community" class="view-section hidden">
+            <header class="section-header">
+                <h1 data-i18n="nav_community">Comunidade</h1>
+                <p>Descobre o que outros criadores estão a construir.</p>
+            </header>
+            <div class="community-grid projects-grid">
+                <!-- Community games inject here -->
             </div>
         </section>
 
